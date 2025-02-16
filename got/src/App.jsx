@@ -32,8 +32,8 @@ const routes = [
     children: [
       
           {
-            path: "product",
-            element: <Product />,
+            path: "home",
+            element: <Home />,
             // loader: productsLoader,
             hydrateFallbackElement: <div>Loading...</div>,
           },

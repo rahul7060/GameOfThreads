@@ -45,8 +45,8 @@ const Footer = () => {
               </span>
 
             </div>
-            <p className="mt-2">&copy; 2025 Edge Lifestyle</p>
-            <p>Powered by Shopify</p>
+            <p className="mt-2"> 2025 Game Of Threads</p>
+        
           </div>
         </footer>
       );

@@ -8,16 +8,16 @@ const getNavigation = (user) => {
     if (!user) {
         // unauthenticated user
         return [
-            { name: 'Home', href: '/', current: true },
+            { name: 'Home', href: '/home', current: true },
             { name: 'Register', href: '/register', current: false },
             { name: 'Login', href: '/login', current: false },
         ]
     } else if (user.role === 'user') {
         return [
             { name: 'Home', href: '/UserDashboard/home', current: true },
-            { name: 'Dashboard', href: '/UserDashboard/dashboard', current: false },
             { name: 'Cart', href: '/UserDashboard/cart', current: false },
             { name: 'Order', href: '/UserDashboard/order', current: false },
+            { name: 'Track', href: '/UserDashboard/dashboard', current: false },
         ]
     } else if (user.role === 'admin') {
         return [
@@ -54,7 +54,7 @@ export default function Navbar({ user }) {
                         <div className="flex shrink-0 items-center">
                             <img
                                 alt="ECOM"
-                                src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=500"
+                                src="images/logo.png"
                                 className="h-8 w-auto"
                             />
                         </div>
@@ -96,7 +96,7 @@ export default function Navbar({ user }) {
                                             <span className="sr-only">Open user menu</span>
                                             <img
                                                alt=""
-                                                src="images/logo.jpeg"
+                                                src="images/logo.png"
                                                 className="size-8 rounded-full"
                                             />
                                         </MenuButton>
