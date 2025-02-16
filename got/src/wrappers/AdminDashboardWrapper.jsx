@@ -1,5 +1,8 @@
-import { Outlet, useLoaderData } from "react-router-dom";
+import React from "react";
+import { Navigate, Outlet, useLoaderData } from "react-router-dom";
 import Navbar from "../components/Navbar";
+import MainContent from "../components/MainContent";
+import Footer from "../components/Footer";
 
 const AdminDashboardWrapper = () => {
 
@@ -10,7 +13,7 @@ const AdminDashboardWrapper = () => {
     }
 
     if (user.role !== 'admin') {
-        return <Navigate to="/dashboard" replace />;
+        return <Navigate to="/userdashboard" replace />;
     }
 
     return (
@@ -21,7 +24,8 @@ const AdminDashboardWrapper = () => {
             <div className="container mx-auto p-4 mt-4">
                 <Outlet />
             </div>
-
+        <MainContent/>
+       <Footer/>
         </>
     )
 }

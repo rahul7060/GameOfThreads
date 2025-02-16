@@ -19,14 +19,22 @@ const Login = () => {
     try {
       const response = await authServices.log({ email, password });
       if (response.status === 200) {
-      alert(response.data.message);
+        alert(response.data.message);
+  
+        // Extract user role from response
+        const userRole  = response.data.user?.role; 
+  
+        // Clear input fields
         dispatch(setEmail(""));
         dispatch(setPassword(""));
-
-
   
-          navigate('/Dashboard');
-
+        // Navigate based on user role
+        if (userRole  === "admin") {
+          navigate('/AdminDashboardWrapper');
+        } else {
+          navigate('/UserDashboard/home');
+        }
+        
       } else {
         setError("Login failed. Please check your credentials.");
       }
@@ -34,7 +42,6 @@ const Login = () => {
       setError(error.response?.data?.message || "An error occurred. Please try again.");
     }
   };
-
   return (
     <div className="flex h-screen bg-gray-50">
       {/* Left Section */}
@@ -61,7 +68,7 @@ const Login = () => {
 
       {/* Right Section */}
       <div className="flex flex-col w-full md:w-1/2 items-center justify-center p-8 bg-white">
-        <h1 className="text-3xl font-creep text-fuchsia-500 mb-4">COFFLOGG</h1>
+        <h1 className="text-3xl font-creep text-fuchsia-500 mb-4">GAME OF THREAD</h1>
         <form onSubmit={handlelogin} className="w-full max-w-xs space-y-4">
           <input
             type="text"

@@ -29,7 +29,7 @@ navigate('/Verifycode')
     <div className="bg-gray-100 flex items-center justify-center h-screen">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-sm">
         <div className="flex justify-center mb-4">
-   <p className='text-fuchsia-600 font-creep text-5xl' >cofflogg</p>
+   <p className='text-fuchsia-600 font-creep text-5xl' >GAME OF THREAD</p>
         </div>
         <h2 className="text-center text-xl font-semibold mb-4">
           Trouble logging in?

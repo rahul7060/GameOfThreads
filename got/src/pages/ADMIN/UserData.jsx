@@ -6,4 +6,4 @@ const UserData = () => {
   )
 }
 
-export default UserData
+export default UserData;

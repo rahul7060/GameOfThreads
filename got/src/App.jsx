@@ -1,8 +1,28 @@
+import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Layout from "./wrappers/Layout";
-import MainContent from "./components/MainContent";
+
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Product from "./pages/Product";
+import Store from "./Redux/App/store";
+import { Provider } from "react-redux";
+import Logout from "./components/Logout";
+import Resetpassword from "./pages/Resetpassword";
+import Verifycode from "./pages/Verifycode";
+import Changepassword from "./pages/Changepassword";
+import UserDashboard from "./wrappers/UserDashboard";
+import Cart from "./pages/Cart";
+import Order from "./pages/Order";
+import authLoader from "./loaders/authLoader";
+import AdminDashboardWrapper from "./wrappers/AdminDashboardWrapper";
+import Home from "./pages/Home";
+import Dashboard from "./pages/Dashboard";
+import UserData from "./pages/ADMIN/UserData";
+import ListProduct from "./pages/ADMIN/ListProduct";
+import AdminAnalysis from "./pages/ADMIN/AdminAnalysis";
+import OrderDetail from "./pages/ADMIN/OrderDetail";
+import Payment from "./pages/ADMIN/Payment";
 
 
 const routes = [
@@ -10,14 +30,11 @@ const routes = [
     path: "/",
     element: <Layout/>,
     children: [
-      {
-        path: "",
-        element: <MainContent />,
-        children: [
+      
           {
-            path: "p",
-            element: <Products />,
-            loader: productsLoader,
+            path: "product",
+            element: <Product />,
+            // loader: productsLoader,
             hydrateFallbackElement: <div>Loading...</div>,
           },
           {
@@ -32,48 +49,97 @@ const routes = [
           },
           {
             path: "logout",
-            element: <Layout />,
+            element: <Logout/>,
             hydrateFallbackElement: <div>Loading...</div>,
-          }
-        ]
-      },
+          },
+        
+          {
+            path: "resetpassword",
+            element: <Resetpassword/>,
+            hydrateFallbackElement: <div>Loading...</div>,
+          },
+        
+          {
+            path: "verifycode",
+            element: <Verifycode/>,
+            hydrateFallbackElement: <div>Loading...</div>,
+          },
+          {
+            path: "Changepassword",
+            element: <Changepassword  />,
+            hydrateFallbackElement: <div>Loading...</div>,
+          },
+        
+      
     ]
   },
-  // {
-  //   path: "/dashboard",
-  //   element: <DashboardWrapper />,
-  //   loader: authLoader,
-  //   hydrateFallbackElement: <div>Loading...</div>,
-  //   children: [
-  //     {
-  //       path: "",
-  //       element: <Dashboard />,
-  //       hydrateFallbackElement: <div>Loading...</div>,
-  //     },
-  //     {
-  //       path: "products/pages/:page",
-  //       element: <UserProducts />,
-  //       loader: productsLoader,
-  //       hydrateFallbackElement: <div>Loading...</div>,
-  //     },
-  //     {
-  //       path: "cart",
-  //       element: <Cart />,
-  //       hydrateFallbackElement: <div>Loading...</div>,
-  //     },
-  //     {
-  //       path: "orders",
-  //       element: <Orders />,
-  //       hydrateFallbackElement: <div>Loading...</div>,
-  //     }
-  //   ]
-  // },
-  // {
-  //   path: "/admin/dashboard",
-  //   element: <AdminDashboardWrapper />,
-  //   loader: authLoader,
-  //   hydrateFallbackElement: <div>Loading...</div>,
-  // }
+  {
+    path: "/UserDashboard",
+    element: <UserDashboard/>,
+    loader: authLoader,
+    hydrateFallbackElement: <div>Loading...</div>,
+    children: [
+      {
+        path: "home",
+        element: <Home/>,
+        hydrateFallbackElement: <div>Loading...</div>,
+      },
+      
+      {
+        path: "dashboard",
+        element: <Dashboard/>,
+        hydrateFallbackElement: <div>Loading...</div>,
+      },
+      
+      {
+        path: "cart",
+        element: <Cart/>,
+        hydrateFallbackElement: <div>Loading...</div>,
+      },
+      
+      {
+        path: "order",
+        element: <Order/>,
+        hydrateFallbackElement: <div>Loading...</div>,
+      },
+      
+    ]
+  },
+  
+  {
+    path: "/AdminDashboardWrapper",
+    element: <AdminDashboardWrapper />,
+    loader: authLoader,
+    hydrateFallbackElement: <div>Loading...</div>,
+    children: [
+      { index: true, element: <UserData /> },
+      {
+        path: "userData",
+        element: <UserData/>,
+        hydrateFallbackElement: <div>Loading...</div>,
+      },
+      {
+        path: "ListProduct",
+        element: <ListProduct/>,
+        hydrateFallbackElement: <div>Loading...</div>,
+      },
+      {
+        path: "AdminAnalysis",
+        element: <AdminAnalysis/>,
+        hydrateFallbackElement: <div>Loading...</div>,
+      },
+      {
+        path: "OrderDetail",
+        element: <OrderDetail/>,
+        hydrateFallbackElement: <div>Loading...</div>,
+      },
+      {
+        path: "payment",
+        element: <Payment/>,
+        hydrateFallbackElement: <div>Loading...</div>,
+      },
+    ]
+  }
 ];
 
 const router = createBrowserRouter(routes, {
@@ -89,7 +155,7 @@ const router = createBrowserRouter(routes, {
 
 const App = () => {
   return (
-    <Provider store={store}>
+    <Provider store={Store}>
       <RouterProvider
         router={router}
         future={{

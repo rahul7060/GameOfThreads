@@ -60,7 +60,7 @@ navigate('/Login')
       {/* Right Section */}
       <div className="flex flex-col w-full md:w-1/2 items-center justify-center p-8 bg-white">
         {/* Instagram Title */}
-        <h1 className="text-3xl font-creep text-fuchsia-500 mb-4">COFFLOGG</h1>
+        <h1 className="text-3xl font-creep text-fuchsia-500 mb-4">GAME OF THREAD</h1>
 
         {/* Sign Up Header */}
         <p className="text-center text-gray-600 mb-6">

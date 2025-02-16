@@ -1,3 +1,5 @@
+import React from 'react'
+
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Link } from 'react-router-dom'
@@ -7,22 +9,23 @@ const getNavigation = (user) => {
         // unauthenticated user
         return [
             { name: 'Home', href: '/', current: true },
-            // { name: 'Register', href: '/register', current: false },
-            // { name: 'Login', href: '/login', current: false },
+            { name: 'Register', href: '/register', current: false },
+            { name: 'Login', href: '/login', current: false },
         ]
     } else if (user.role === 'user') {
         return [
-            { name: 'Dashboard', href: '/dashboard', current: true },
-            { name: 'Products', href: '/dashboard/products/pages/1', current: false },
-            { name: 'Cart', href: '/dashboard/cart', current: false },
-            { name: 'Orders', href: '/dashboard/orders', current: false },
+            { name: 'Home', href: '/UserDashboard/home', current: true },
+            { name: 'Dashboard', href: '/UserDashboard/dashboard', current: false },
+            { name: 'Cart', href: '/UserDashboard/cart', current: false },
+            { name: 'Order', href: '/UserDashboard/order', current: false },
         ]
     } else if (user.role === 'admin') {
         return [
-            { name: 'Admin Dashboard', href: '/admin/dashboard', current: true },
-            { name: 'Products', href: '/admin/products', current: false },
-            { name: 'Orders', href: '/admin/orders', current: false },
-            { name: 'Users', href: '/admin/users', current: false },
+            { name: 'UserData', href: '/AdminDashboardWrapper/UserData', current: true },
+            { name: 'ListProduct', href: '/AdminDashboardWrapper/ListProduct', current: false },
+            { name: 'AdminAnalysis', href: '/AdminDashboardWrapper/AdminAnalysis', current: false },
+            { name: 'OrderDetail', href: '/AdminDashboardWrapper/OrderDetail', current: false },
+            { name: 'Payment', href: '/AdminDashboardWrapper/Payment', current: false },
         ]
     }
 
@@ -35,7 +38,7 @@ function classNames(...classes) {
 
 export default function Navbar({ user }) {
     return (
-        <Disclosure as="nav" className="bg-gray-800">
+        <Disclosure as="nav" className="bg-black">
             <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
                 <div className="relative flex h-16 items-center justify-between">
                     <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -92,8 +95,8 @@ export default function Navbar({ user }) {
                                             <span className="absolute -inset-1.5" />
                                             <span className="sr-only">Open user menu</span>
                                             <img
-                                                alt=""
-                                                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                               alt=""
+                                                src="images/logo.jpeg"
                                                 className="size-8 rounded-full"
                                             />
                                         </MenuButton>

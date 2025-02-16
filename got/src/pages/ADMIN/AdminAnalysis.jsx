@@ -6,4 +6,4 @@ const AdminAnalysis = () => {
   )
 }
 
-export default AdminAnalysis
+export default AdminAnalysis;

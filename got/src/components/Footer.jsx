@@ -1,5 +1,5 @@
+import React from 'react'
 
-import  useState  from "react";
    
 const Footer = () => {
   
@@ -33,26 +33,17 @@ const Footer = () => {
               <p className="text-gray-400 text-sm mb-4">
                 Get 10% OFF your first order when you join EDGE.
               </p>
-              <div className="relative">
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  className="w-full bg-transparent border-b border-gray-400 text-white outline-none py-2 pr-10"
-                />
-                <MdEmail className="absolute right-0 top-1/2 transform -translate-y-1/2 text-gray-400" />
-              </div>
-              <FaInstagram className="mt-4 text-xl cursor-pointer" />
-            </div>
+            
           </div>
-    
+    </div>
           {/* Bottom Section */}
           <div className="mt-8 text-center text-gray-400 text-sm">
             <div className="flex justify-center items-center gap-2 cursor-pointer">
               <span className="flex items-center gap-1">
                 <span className="inline-block w-5 h-5 bg-[url('/us-flag.svg')] bg-cover"></span>
-                {currency}
+         
               </span>
-              <IoIosArrowDown />
+
             </div>
             <p className="mt-2">&copy; 2025 Edge Lifestyle</p>
             <p>Powered by Shopify</p>
