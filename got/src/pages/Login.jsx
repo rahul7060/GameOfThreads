@@ -21,6 +21,7 @@ const Login = () => {
       if (response.status === 200) {
         alert(response.data.message);
   
+
         // Extract user role from response
         const userRole  = response.data.user?.role; 
   
@@ -32,7 +33,7 @@ const Login = () => {
         if (userRole  === "admin") {
           navigate('/AdminDashboardWrapper');
         } else {
-          navigate('/UserDashboard/home');
+          navigate('/UserDashboard');
         }
         
       } else {

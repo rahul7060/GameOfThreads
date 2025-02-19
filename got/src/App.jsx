@@ -23,6 +23,12 @@ import ListProduct from "./pages/ADMIN/ListProduct";
 import AdminAnalysis from "./pages/ADMIN/AdminAnalysis";
 import OrderDetail from "./pages/ADMIN/OrderDetail";
 import Payment from "./pages/ADMIN/Payment";
+import productsLoader from "./loaders/productsLoader";
+import ProductPage from"./pages/ProductPage"
+import productIdLoader from "./loaders/productIdLoader";
+
+
+
 
 
 const routes = [
@@ -30,13 +36,22 @@ const routes = [
     path: "/",
     element: <Layout/>,
     children: [
-      
+      {
+        index: true, // This makes "register" the default route
+        element: <Home />,
+      },
           {
             path: "home",
             element: <Home />,
-            // loader: productsLoader,
+           
             hydrateFallbackElement: <div>Loading...</div>,
           },
+          // {
+          //   path: "product",
+          //   element: <Product/>,
+          //   loader:productsLoader,
+          //   hydrateFallbackElement: <div>Loading...</div>,
+          // },
           {
             path: "register",
             element: <Register />,
@@ -84,7 +99,20 @@ const routes = [
         element: <Home/>,
         hydrateFallbackElement: <div>Loading...</div>,
       },
-      
+      {
+        path: "product",
+        element: <Product/>,
+      loader:productsLoader,
+      hydrateFallbackElement: <div>Loading...</div>,
+      },
+        {
+          path: "productPage/:id", 
+          element: <ProductPage/>,
+          loader: productIdLoader,
+          hydrateFallbackElement: <div>Loading...</div>,
+        },
+    
+    
       {
         path: "dashboard",
         element: <Dashboard/>,

@@ -1,10 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link,Outlet } from "react-router-dom";
 
 const Home = () => {
   return (
     <div className="grid grid-cols-2 gap-2 p-4 md:grid-cols-2 lg:grid-cols-2">
-      {/* TEE Section */}
+      
       <Link to="/tee" className="relative aspect-[5/2] block">
         <img
           src="/images/jackets.jpg"
@@ -17,7 +17,7 @@ const Home = () => {
       </Link>
 
       {/* JOGGER Section */}
-      <Link to="/jogger" className="relative aspect-[5/2] block">
+      { <Link to="/jogger" className="relative aspect-[5/2] block">
         <img
           src="/images/red.jpeg"
           alt="Jackets"
@@ -26,10 +26,10 @@ const Home = () => {
         <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30">
           <span className="text-white text-xl font-bold">JOGGER</span>
         </div>
-      </Link>
+      </Link> }
 
       {/* HOODIE Section */}
-      <Link to="/hoodie" className="relative aspect-[5/2] block">
+      { <Link to="/hoodie" className="relative aspect-[5/2] block">
         <img
           src="/images/jackets.jpg"
           alt="Jackets"
@@ -38,10 +38,10 @@ const Home = () => {
         <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30">
           <span className="text-white text-xl font-bold">HOODIES</span>
         </div>
-      </Link>
+      </Link> }
 
       {/* DENIM Section */}
-      <Link to="/denim" className="relative aspect-[5/2] block">
+       { <Link to="/denim" className="relative aspect-[5/2] block">
         <img
           src="/images/tanks.jpg"
           alt="Tanks"
@@ -50,10 +50,10 @@ const Home = () => {
         <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30">
           <span className="text-white text-xl font-bold">DENIM</span>
         </div>
-      </Link>
+      </Link> }
 
       {/* All Products Section (Spanning Full Width) */}
-      <Link to="/all-products" className="relative col-span-2 aspect-[10/3] block">
+      <Link to="/UserDashboard/product" className="relative col-span-2 aspect-[10/3] block">
         <img
           src="/images/all-products.jpg"
           alt="All Products"
@@ -63,6 +63,7 @@ const Home = () => {
           <span className="text-white text-xl font-bold">ALL PRODUCTS</span>
         </div>
       </Link>
+      <Outlet />
     </div>
   );
 };
