@@ -22,12 +22,7 @@ const productServices = {
         }
     },
     getById: async (id) => {
-        if (!id || id === "undefined") {  // Check for invalid ID
-            console.error("Error: Invalid Product ID provided");
-            return null;
-        }
-    
-        try {
+               try {
             const response = await instance.get(`/products/${id}`);
             return response.data;
         } catch (error) {

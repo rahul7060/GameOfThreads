@@ -5,11 +5,11 @@ const Footer = () => {
   
     
       return (
-        <footer className="bg-black text-white py-10 px-6 md:px-16">
+        <footer className="bg-black text-white  py-10 px-6 md:px-16">
           <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Support Section */}
             <div>
-              <h3 className="font-semibold mb-2">SUPPORT</h3>
+              <h3 className="font-semibold font-creep mb-2">SUPPORT</h3>
               <ul className="space-y-2 text-gray-400">
                 <li>Return Policy</li>
                 <li>Shipping FAQ</li>

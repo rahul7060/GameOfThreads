@@ -7,7 +7,7 @@ import Footer from "../components/Footer";
 const UserDashboard = () => {
 
     const user = useLoaderData();
-
+ 
     if (!user) {
         return <Navigate to="/login" replace />;
     }
@@ -19,9 +19,9 @@ const UserDashboard = () => {
     return (
         <>
             <Navbar
-                user={user}
+                user={user} 
             />
-            <div className="container mx-auto p-4 mt-4">
+            <div className="w-full  ">
                 <Outlet />
             </div>
         

@@ -3,51 +3,51 @@ import { Link,Outlet } from "react-router-dom";
 
 const Home = () => {
   return (
-    <div className="grid grid-cols-2 gap-2 p-4 md:grid-cols-2 lg:grid-cols-2">
+    <div className="grid grid-cols-2 font-creep gap-2 p-4 md:grid-cols-2 lg:grid-cols-2">
       
-      <Link to="/tee" className="relative aspect-[5/2] block">
+      <Link to="/UserDashboard/tee" className="relative aspect-[5/2] block">
         <img
-          src="/images/jackets.jpg"
+          src="/images/e.jpg"
           alt="Jackets"
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30">
+        <div className="absolute inset-0 flex items-center justify-center">
           <span className="text-white text-xl font-bold">ELITE TEE</span>
         </div>
       </Link>
 
       {/* JOGGER Section */}
-      { <Link to="/jogger" className="relative aspect-[5/2] block">
+      { <Link to="/UserDashboard/jogger" className="relative aspect-[5/2] block">
         <img
-          src="/images/red.jpeg"
+          src="/images/jog.png"
           alt="Jackets"
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30">
-          <span className="text-white text-xl font-bold">JOGGER</span>
+        <div className="absolute inset-0 flex items-center justify-center bg-opacity-30">
+          <span className="text-white text-xl font-bold"></span>
         </div>
       </Link> }
 
       {/* HOODIE Section */}
-      { <Link to="/hoodie" className="relative aspect-[5/2] block">
+      { <Link to="/UserDashboard/hoodie" className="relative aspect-[5/2] block">
         <img
-          src="/images/jackets.jpg"
+          src="/images/hoo.jpg"
           alt="Jackets"
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30">
+        <div className="absolute inset-0 flex items-center justify-center ">
           <span className="text-white text-xl font-bold">HOODIES</span>
         </div>
       </Link> }
 
       {/* DENIM Section */}
-       { <Link to="/denim" className="relative aspect-[5/2] block">
+       { <Link to="/UserDashboard/demim" className="relative aspect-[5/2] block">
         <img
-          src="/images/tanks.jpg"
+          src="/images/dee.jpg"
           alt="Tanks"
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30">
+        <div className="absolute inset-0 flex items-center justify-center ">
           <span className="text-white text-xl font-bold">DENIM</span>
         </div>
       </Link> }
@@ -55,12 +55,12 @@ const Home = () => {
       {/* All Products Section (Spanning Full Width) */}
       <Link to="/UserDashboard/product" className="relative col-span-2 aspect-[10/3] block">
         <img
-          src="/images/all-products.jpg"
+          src="/images/all.png"
           alt="All Products"
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30">
-          <span className="text-white text-xl font-bold">ALL PRODUCTS</span>
+        <div className="absolute inset-0 flex items-center justify-center  ">
+          <span className="text-white text-xl font-bold"></span>
         </div>
       </Link>
       <Outlet />

@@ -1,103 +1,148 @@
-import React, { useState } from 'react'; // Import useState
+import React, { useState } from "react";
 import { useLoaderData, useNavigate } from "react-router-dom";
+import { FaHeart, FaShoppingCart } from "react-icons/fa"; // Icons
 
 const Product = () => {
-    const { products, total } = useLoaderData() || { products: [], total: 0 }; // Fallback for empty data
-    const navigate = useNavigate();
-    const [page, setPage] = useState(1); // Initialize page state
-   
+  const { products, total } = useLoaderData() || { products: [], total: 0 };
+  const navigate = useNavigate();
+  const [page, setPage] = useState(1);
 
-    // Check if products data is available
-    console.log("Loaded Products:", products);
+  const updatePage = (e) => {
+    const newPage = parseInt(e.target.textContent);
+    setPage(newPage);
+    navigate(`/products/pages/${newPage}`);
+  };
 
-    const updatePage = (e) => {
-        const newPage = parseInt(e.target.textContent);
-        setPage(newPage);
-        navigate(`/products/pages/${newPage}`);
-    };
+  const previousPage = () => {
+    if (page > 1) {
+      setPage(page - 1);
+      navigate(`/products/pages/${page - 1}`);
+    }
+  };
 
-    const previousPage = () => {
-        if (page > 1) {
-            const newPage = page - 1;
-            setPage(newPage);
-            navigate(`/products/pages/${newPage}`);
-        }
-    };
+  const nextPage = () => {
+    if (page < Math.ceil(total / 5)) {
+      setPage(page + 1);
+      navigate(`/products/pages/${page + 1}`);
+    }
+  };
 
-    const nextPage = () => {
-        if (page < Math.ceil(total / 5)) {
-            const newPage = page + 1;
-            setPage(newPage);
-            navigate(`/products/pages/${newPage}`);
-        }
-    };
+  const productDetail = (id) => {
+    if (!id) return console.error("Error: Product ID is missing!");
+    navigate(`/UserDashboard/productPage/${id}`);
+  };
 
-    const productDetail = (id) => {
-        if (!id) {
-            console.error("Error: Product ID is missing or undefined!");
-            return;
-        }
-        
-        console.log("Navigating to Product Page with ID:", id);
-        navigate(`/UserDashboard/productPage/${id}`);
-    };
-    
-    
+  return (
+    <div className="flex bg-white min-h-screen">
+  
+      {/* Product Grid */}
+      <div className="flex-1 p-8">
+        <h1 className="text-3xl border-amber-600 font-bold mb-6"></h1>
 
-    return (
-        <div className="flex flex-wrap">
-            {products.length === 0 ? (
-                <div>No products found.</div>
-            ) : (
-                products.map((product, index) => (
-                    <div key={product._id} onClick={()=>productDetail(product._id)} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 p-2">
-                        <div className="bg-white rounded-lg shadow-lg">
-                            <div className="p-2">
-                                <img
-                                    src={product.image}
-                                    alt={product.name}
-                                    className="w-full h-64 object-cover rounded-t-lg"
-                                />
-                                <h3 className="text-lg font-semibold">{product.name}</h3>
-                                <p className="text-sm text-gray-600">{product.description}</p>
-                                <p className="text-lg font-semibold text-gray-800">${product.price}</p>
-                            </div>
-                        </div>
-                    </div>
-                ))
+        <div className="grid gap-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+          {products.length === 0 ? (
+            <div className="text-center text-gray-500 border-amber-400 text-lg">
+              No products found.
+            </div>
+          ) : (
+            products.map((product) => (
+              <div
+                key={product._id}
+                onClick={() => productDetail(product._id)}
+                className="relative group cursor-pointer p-4 bg-white rounded-2xl shadow-md hover:shadow-lg transition-all"
+              >
+                {/* Label (Best Seller, Hot Promo, New) */}
+                {product.label && (
+                  <span
+                    className={`absolute top-2 left-2 px-2 py-1 text-xs font-bold text-white rounded ${
+                      product.label === "New"
+                        ? "bg-blue-500"
+                        : product.label === "Hot Promo"
+                        ? "bg-red-500"
+                        : "bg-green-500"
+                    }`}
+                  >
+                    {product.label}
+                  </span>
+                )}
+
+                {/* Image */}
+                <div className="relative  p-6 ">
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="w-full h-72 object-cover rounded-xl"
+                  />
+                </div>
+
+                {/* Wishlist & Cart Icons */}
+                <div className="absolute top-2 right-2 flex space-x-2">
+                  <FaHeart className="text-gray-400 hover:text-red-500 text-xl cursor-pointer" />
+                </div>
+
+                {/* Product Info */}
+                <div className="text-center uppercase p-4">
+                  <h3 className="text-lg font-semibold text-gray-900">
+                    {product.name}
+                  </h3>
+                  <p className="text-md font-bold text-gray-700">RS {product.price}</p>
+                </div>
+
+                {/* Add to Cart Button */}
+                <button className="w-full flex items-center justify-center gap-2 bg-black text-white py-2 rounded-lg font-bold hover:bg-gray-900 transition-all">
+                  <FaShoppingCart /> Add to Cart
+                </button>
+              </div>
+            ))
+          )}
+        </div>
+
+        {/* Pagination */}
+        <div className="mt-8 flex justify-center space-x-3">
+          <button
+            className={`px-5 py-2 rounded-full font-semibold ${
+              page === 1
+                ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                : "bg-black text-white hover:bg-gray-900"
+            }`}
+            onClick={previousPage}
+            disabled={page === 1}
+          >
+            ◀ Prev
+          </button>
+
+          {Number.isFinite(total) &&
+            Array.from({ length: Math.ceil(total / 5) }, (_, i) => i + 1).map(
+              (pageNum) => (
+                <button
+                  key={pageNum}
+                  className={`px-4 py-2 rounded-full font-semibold ${
+                    page === pageNum
+                      ? "bg-black text-white scale-110 shadow-md"
+                      : "bg-gray-200 hover:bg-gray-300"
+                  }`}
+                  onClick={updatePage}
+                >
+                  {pageNum}
+                </button>
+              )
             )}
 
-            {/* Pagination */}
-            <div className="w-full p-2">
-                <div className="flex justify-center">
-                    <button
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-l"
-                        onClick={previousPage}
-                    >
-                        Prev
-                    </button>
-
-                    {Number.isFinite(total) &&
-                        Array.from({ length: Math.ceil(total / 5) }, (_, i) => i + 1).map((pageNum) => (
-                            <button
-                                key={pageNum}
-                                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4"
-                                onClick={updatePage}
-                            >
-                                {pageNum}
-                            </button>
-                        ))}
-
-                    <button
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-r"
-                        onClick={nextPage}
-                    >
-                        Next
-                    </button>
-                </div>
-            </div>
+          <button
+            className={`px-5 py-2 rounded-full font-semibold ${
+              page >= Math.ceil(total / 5)
+                ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                : "bg-black text-white hover:bg-gray-900"
+            }`}
+            onClick={nextPage}
+            disabled={page >= Math.ceil(total / 5)}
+          >
+            Next ▶
+          </button>
         </div>
-    );
+      </div>
+    </div>
+  );
 };
 
 export default Product;

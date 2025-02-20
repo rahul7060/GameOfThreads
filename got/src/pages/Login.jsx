@@ -68,7 +68,7 @@ const Login = () => {
       </div>
 
       {/* Right Section */}
-      <div className="flex flex-col w-full md:w-1/2 items-center justify-center p-8 bg-white">
+      <div className="flex flex-col   w-full md:w-1/2 items-center justify-center p-8 bg-white">
         <h1 className="text-3xl font-creep text-fuchsia-500 mb-4">GAME OF THREAD</h1>
         <form onSubmit={handlelogin} className="w-full max-w-xs space-y-4">
           <input

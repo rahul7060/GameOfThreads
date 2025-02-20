@@ -26,6 +26,10 @@ import Payment from "./pages/ADMIN/Payment";
 import productsLoader from "./loaders/productsLoader";
 import ProductPage from"./pages/ProductPage"
 import productIdLoader from "./loaders/productIdLoader";
+import Tee from "./pages/ADMIN/Tee";
+import Jogger from "./pages/Jogger";
+import Hoodie from "./pages/Hoodie";
+import Demim from "./pages/Demim";
 
 
 
@@ -43,15 +47,46 @@ const routes = [
           {
             path: "home",
             element: <Home />,
-           
+      
             hydrateFallbackElement: <div>Loading...</div>,
+          },{
+            path: "product",
+            element: <Product/>,
+          loader:productsLoader,
+          hydrateFallbackElement: <div>Loading...</div>,
           },
-          // {
-          //   path: "product",
-          //   element: <Product/>,
-          //   loader:productsLoader,
-          //   hydrateFallbackElement: <div>Loading...</div>,
-          // },
+            {
+              path: "tee",
+              element: <Tee/>,
+              loader:productsLoader,
+              hydrateFallbackElement: <div>Loading...</div>,
+            },
+            {
+              path: "demim",
+              element: <Demim/>,
+              loader:productsLoader,
+              hydrateFallbackElement: <div>Loading...</div>,
+            },
+            {
+              path: "jogger",
+              element: <Jogger/>,
+              loader:productsLoader,
+              hydrateFallbackElement: <div>Loading...</div>,
+            },
+            {
+              path: "hoodie",
+              element: <Hoodie/>,
+              loader:productsLoader,
+              hydrateFallbackElement: <div>Loading...</div>,
+            },
+       
+        
+            {
+              path: "productPage/:id", 
+              element: <ProductPage/>,
+              loader: productIdLoader,
+              hydrateFallbackElement: <div>Loading...</div>,
+            },
           {
             path: "register",
             element: <Register />,
@@ -97,6 +132,7 @@ const routes = [
       {
         path: "home",
         element: <Home/>,
+        loader:productsLoader,
         hydrateFallbackElement: <div>Loading...</div>,
       },
       {
@@ -106,12 +142,38 @@ const routes = [
       hydrateFallbackElement: <div>Loading...</div>,
       },
         {
+          path: "tee",
+          element: <Tee/>,
+          loader:productsLoader,
+          hydrateFallbackElement: <div>Loading...</div>,
+        },
+        {
+          path: "demim",
+          element: <Demim/>,
+          loader:productsLoader,
+          hydrateFallbackElement: <div>Loading...</div>,
+        },
+        {
+          path: "jogger",
+          element: <Jogger/>,
+          loader:productsLoader,
+          hydrateFallbackElement: <div>Loading...</div>,
+        },
+        {
+          path: "hoodie",
+          element: <Hoodie/>,
+          loader:productsLoader,
+          hydrateFallbackElement: <div>Loading...</div>,
+        },
+   
+    
+        {
           path: "productPage/:id", 
           element: <ProductPage/>,
           loader: productIdLoader,
           hydrateFallbackElement: <div>Loading...</div>,
         },
-    
+   
     
       {
         path: "dashboard",
