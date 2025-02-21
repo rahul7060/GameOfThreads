@@ -136,10 +136,16 @@ const routes = [
         hydrateFallbackElement: <div>Loading...</div>,
       },
       {
-        path: "product",
+        path: "product/:page?",
         element: <Product/>,
       loader:productsLoader,
       hydrateFallbackElement: <div>Loading...</div>,
+      },
+      {
+        path: "productPage/:id/:page?",
+        element: <ProductPage />,
+        loader: productIdLoader,
+        hydrateFallbackElement: <div>Loading...</div>,
       },
         {
           path: "tee",

@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { useLoaderData, useParams } from "react-router-dom";
 
 const ProductPage = () => {
   const product = useLoaderData();
   const { id } = useParams();
+  const [selectedSize, setSelectedSize] = useState(null);
 
   console.log("Product ID from Params:", id);
   console.log("Loaded Product Data:", product);
@@ -17,12 +18,12 @@ const ProductPage = () => {
   }
 
   return (
-    <div className="w-full bg-black mx-auto p-6">
+    <div className="max-w-5xl  mx-auto p-6 bg-white">
       {/* Product Details Section */}
-      <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
+      <div className="flex flex-col md:flex-row items-center gap-10">
         {/* Product Image */}
         <img
-          className="md:w-1/2 w-full rounded-lg object-cover"
+          className="w-full md:w-1/2 rounded-lg object-cover"
           src={product.image || "default-placeholder.jpg"}
           alt={product.name}
         />
@@ -30,31 +31,20 @@ const ProductPage = () => {
         {/* Product Info */}
         <div className="w-full md:w-1/2 space-y-4">
           <h1 className="text-2xl font-bold">{product.name}</h1>
-          <p className="text-gray-500 text-lg">${product.price}</p>
+          <p className="text-lg font-semibold">MRP: ₹ {product.price}</p>
           <p className="text-sm text-gray-600">{product.description}</p>
-
-          {/* Color Selection */}
-          <div>
-            <span className="font-semibold">Color:</span>
-            <div className="flex items-center gap-2 mt-2">
-              {product.colors?.map((color, index) => (
-                <div
-                  key={index}
-                  className="w-6 h-6 rounded-full border-2 border-gray-300 cursor-pointer"
-                  style={{ backgroundColor: color }}
-                ></div>
-              ))}
-            </div>
-          </div>
 
           {/* Size Selection */}
           <div>
-            <span className="font-semibold">Size:</span>
-            <div className="flex space-x-2 mt-2">
-              {["XS", "S", "M", "L", "XL"].map((size) => (
+            <span className="font-semibold text-lg">Select Size</span>
+            <div className="grid grid-cols-4 gap-2 mt-2">
+              {["M", "L", "XL", "XXL"].map((size) => (
                 <button
                   key={size}
-                  className="px-4 py-2 border border-gray-400 rounded-md hover:bg-gray-100"
+                  onClick={() => setSelectedSize(size)}
+                  className={`px-4 py-2 border rounded-md font-semibold ${
+                    selectedSize === size ? "bg-black text-white" : "border-gray-400 hover:bg-gray-100"
+                  }`}
                 >
                   {size}
                 </button>
@@ -62,14 +52,17 @@ const ProductPage = () => {
             </div>
           </div>
 
-          {/* Add to Cart Button */}
-          <button className="w-full bg-blue-600 text-white py-3 rounded-lg font-bold hover:bg-blue-700">
-            Add to Cart
+          {/* Add to Cart & Favourite Button */}
+          <button className="w-full bg-black text-white py-3 rounded-lg font-bold hover:opacity-90">
+            Add to Bag
+          </button>
+          <button className="w-full border border-gray-400 py-3 rounded-lg font-bold hover:bg-gray-100">
+            ♥ Favourite
           </button>
 
           {/* Shipping Info */}
           <p className="text-sm text-gray-600">
-            Free Shipping over $50 | 7-Day Hassle-Free Returns
+            Inclusive of all taxes | Free Shipping
           </p>
         </div>
       </div>

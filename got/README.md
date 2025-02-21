@@ -51,9 +51,6 @@ View all transactions
 Handle refunds & disputes
 Payment gateway settings (Stripe, PayPal, Razorpay, etc.)
 
-11️⃣ Admin & Staff Roles
-Create new admin/staff accounts
-Assign roles & permissions (e.g., "Order Manager," "Product Editor")
 
 12️⃣ Site Settings
 Manage website logo, banner, and theme settings
