@@ -8,7 +8,7 @@ const getNavigation = (user) => {
     if (!user) {
         // unauthenticated user
         return [
-            { name: 'Home', href: '/home', current: true },
+            { name: 'Dashboard', href: '/Dashboard', current: true },
             { name: 'Register', href: '/register', current: false },
             { name: 'Login', href: '/login', current: false },
         ]
@@ -17,7 +17,7 @@ const getNavigation = (user) => {
             { name: 'Home', href: '/UserDashboard/home', current: true },
             { name: 'Cart', href: '/UserDashboard/cart', current: false },
             { name: 'Order', href: '/UserDashboard/order', current: false },
-            { name: 'Track', href: '/UserDashboard/dashboard', current: false },
+        
         ]
     } else if (user.role === 'admin') {
         return [

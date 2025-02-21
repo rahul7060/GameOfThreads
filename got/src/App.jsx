@@ -17,7 +17,7 @@ import Order from "./pages/Order";
 import authLoader from "./loaders/authLoader";
 import AdminDashboardWrapper from "./wrappers/AdminDashboardWrapper";
 import Home from "./pages/Home";
-import Dashboard from "./pages/Dashboard";
+import Dashboard from "./pages/ANYONE/Dashboard";
 import UserData from "./pages/ADMIN/UserData";
 import ListProduct from "./pages/ADMIN/ListProduct";
 import AdminAnalysis from "./pages/ADMIN/AdminAnalysis";
@@ -30,6 +30,11 @@ import Tee from "./pages/ADMIN/Tee";
 import Jogger from "./pages/Jogger";
 import Hoodie from "./pages/Hoodie";
 import Demim from "./pages/Demim";
+import HomeProduct from "./pages/ANYONE/HomeProduct";
+import HoodieAnyone from "./pages/ANYONE/HoodieAnyone";
+import TeeAnyone from "./pages/ANYONE/TeeAnyone";
+import DenimAnyone from "./pages/ANYONE/DenimAnyone";
+import JoggerAnyone from "./pages/ANYONE/JoggerAnyone";
 
 
 
@@ -43,50 +48,44 @@ const routes = [
       {
         index: true, // This makes "register" the default route
         element: <Home />,
+      },{
+        path: "dashboard",
+        element: <Dashboard />,
+  
+        hydrateFallbackElement: <div>Loading...</div>,
       },
+          
           {
-            path: "home",
-            element: <Home />,
-      
+            path: "homeProduct",
+            element: <HomeProduct />,
+            loader:productsLoader,
             hydrateFallbackElement: <div>Loading...</div>,
-          },{
-            path: "product",
-            element: <Product/>,
-          loader:productsLoader,
-          hydrateFallbackElement: <div>Loading...</div>,
           },
-            {
-              path: "tee",
-              element: <Tee/>,
-              loader:productsLoader,
-              hydrateFallbackElement: <div>Loading...</div>,
-            },
-            {
-              path: "demim",
-              element: <Demim/>,
-              loader:productsLoader,
-              hydrateFallbackElement: <div>Loading...</div>,
-            },
-            {
-              path: "jogger",
-              element: <Jogger/>,
-              loader:productsLoader,
-              hydrateFallbackElement: <div>Loading...</div>,
-            },
-            {
-              path: "hoodie",
-              element: <Hoodie/>,
-              loader:productsLoader,
-              hydrateFallbackElement: <div>Loading...</div>,
-            },
-       
-        
-            {
-              path: "productPage/:id", 
-              element: <ProductPage/>,
-              loader: productIdLoader,
-              hydrateFallbackElement: <div>Loading...</div>,
-            },
+          {
+            path: "denimAnyone",
+            element: <DenimAnyone/>,
+            loader:productsLoader,
+            hydrateFallbackElement: <div>Loading...</div>,
+          },
+          {
+            path: "teeAnyone",
+            element: <TeeAnyone />,
+            loader:productsLoader,
+            hydrateFallbackElement: <div>Loading...</div>,
+          },
+          {
+            path: "hoodieAnyone",
+            element: < HoodieAnyone/>,
+            loader:productsLoader,
+            hydrateFallbackElement: <div>Loading...</div>,
+          },
+          {
+            path: "joggerAnyone",
+            element: <JoggerAnyone/>,
+            loader:productsLoader,
+            hydrateFallbackElement: <div>Loading...</div>,
+          },
+
           {
             path: "register",
             element: <Register />,
