@@ -13,7 +13,7 @@ const HoodieAnyone = () => {
   const [page, setPage] = useState(pageFromUrl);
 
   const jogger = products.filter(
-    (product) => product.category.trim().toUpperCase() === "JOGGER"
+    (product) => product.category.trim().toUpperCase() === "HOODIE"
   );
   useEffect(() => {
     if (page !== pageFromUrl) setPage(pageFromUrl); // Prevent unnecessary re-renders
@@ -25,12 +25,12 @@ const HoodieAnyone = () => {
   };
   const productDetail = (id) => {
     if (!id) return console.error("Error: Product ID is missing!");
-    navigate(`/productPage/${id}`);
+    navigate(`/productPageAnyone/${id}`);
   };
   return (
     <div className="flex  bg-white min-h-screen">
       <div className="flex-col-reverse p-8">
-        <h1 className="text-3xl text-center uppercase font-bold mb-6">JOGGERs</h1>
+        <h1 className="text-3xl text-center uppercase  font-creep mb-6">element hoodie</h1>
 
         <div className="grid gap-10 grid-rows-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {products.length === 0 ? (

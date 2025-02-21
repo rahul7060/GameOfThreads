@@ -39,7 +39,7 @@ const Demim = () => {
   return (
     <div className="flex bg-gray-100 min-h-screen">
       <div className="flex-1 p-8">
-        <h1 className="text-3xl font-bold mb-6">Joggers</h1>
+        <h1 className="text-3xl font-creep font-bold mb-6">Joggers</h1>
 
         <div className="grid gap-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {joggers.length === 0 ? (

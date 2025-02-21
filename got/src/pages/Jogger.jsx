@@ -11,7 +11,7 @@ const Jogger = () => {
   const { page: currentPageParam } = useParams();
   
   const pageFromUrl = Number(currentPageParam) || 1;
-  const totalPages = Math.ceil(total / 1);
+  const totalPages = Math.ceil(total / 3);
   const [page, setPage] = useState(pageFromUrl);
 
   const jogger = products.filter(
@@ -32,7 +32,7 @@ const Jogger = () => {
   return (
     <div className="flex  bg-white min-h-screen">
       <div className="flex-col-reverse p-8">
-        <h1 className="text-3xl text-center uppercase font-bold mb-6">JOGGERs</h1>
+        <h1 className="text-3xl text-center uppercase font-creep mb-6">JOGGERs</h1>
 
         <div className="grid gap-10 grid-rows-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {products.length === 0 ? (

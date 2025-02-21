@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { selectEmail, selectPassword, setEmail, setPassword } from "../../src/Redux/features/auth/AuthSlice";
 import authServices from "../service/authServices";
-
+import Swal from "sweetalert2";
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -17,24 +17,41 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await authServices.log({ email, password });
-      if (response.status === 200) {
-        alert(response.data.message);
   
+      if (response.status === 200) {
         const userRole = response.data.user?.role; 
+  
+        Swal.fire({
+          title: "Success!",
+          text: response.data.message,
+          icon: "success",
+          showConfirmButton: false,
+          timer: 2000, // Auto close in 2 seconds
+        });
   
         dispatch(setEmail(""));
         dispatch(setPassword(""));
   
-        if (userRole === "admin") {
-          navigate('/AdminDashboardWrapper');
-        } else {
-          navigate('/UserDashboard');
-        }
+        setTimeout(() => {
+          if (userRole === "admin") {
+            navigate('/AdminDashboardWrapper');
+          } else {
+            navigate('/UserDashboard');
+          }
+        }, 2000); // Navigate after showing the alert
       } else {
-        setError("Login failed. Please check your credentials.");
+        Swal.fire({
+          title: "Login Failed",
+          text: "Please check your credentials.",
+          icon: "error",
+        });
       }
     } catch (error) {
-      setError(error.response?.data?.message || "An error occurred. Please try again.");
+      Swal.fire({
+        title: "Error!",
+        text: error.response?.data?.message || "An error occurred. Please try again.",
+        icon: "error",
+      });
     }
   };
 

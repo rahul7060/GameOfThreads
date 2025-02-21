@@ -35,6 +35,7 @@ import HoodieAnyone from "./pages/ANYONE/HoodieAnyone";
 import TeeAnyone from "./pages/ANYONE/TeeAnyone";
 import DenimAnyone from "./pages/ANYONE/DenimAnyone";
 import JoggerAnyone from "./pages/ANYONE/JoggerAnyone";
+import ProductPageAnyone from "./pages/ANYONE/ProductPageAnyone";
 
 
 
@@ -56,7 +57,7 @@ const routes = [
       },
           
           {
-            path: "homeProduct",
+            path: "homeProduct/:page?",
             element: <HomeProduct />,
             loader:productsLoader,
             hydrateFallbackElement: <div>Loading...</div>,
@@ -83,6 +84,12 @@ const routes = [
             path: "joggerAnyone",
             element: <JoggerAnyone/>,
             loader:productsLoader,
+            hydrateFallbackElement: <div>Loading...</div>,
+          },
+          {
+            path: "productPageAnyone/:id/:page?",
+            element: <ProductPageAnyone/>,
+            loader: productIdLoader,
             hydrateFallbackElement: <div>Loading...</div>,
           },
 
@@ -128,6 +135,10 @@ const routes = [
     loader: authLoader,
     hydrateFallbackElement: <div>Loading...</div>,
     children: [
+      {
+        index: true, // This makes "register" the default route
+        element: <Home />,
+      },
       {
         path: "home",
         element: <Home/>,

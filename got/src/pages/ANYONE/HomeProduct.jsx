@@ -22,7 +22,7 @@ const HomeProduct = () => {
   };
   const productDetail = (id) => {
     if (!id) return console.error("Error: Product ID is missing!");
-    navigate(`/productPage/${id}`);
+    navigate(`/AnyoneproductPage/${id}`);
   };
   return (
     <div className="flex  bg-white min-h-screen">

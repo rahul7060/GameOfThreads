@@ -9,7 +9,7 @@ const Product = () => {
   const { page: currentPageParam } = useParams();
   
   const pageFromUrl = Number(currentPageParam) || 1;
-  const totalPages = Math.ceil(total / 1);
+  const totalPages = Math.ceil(total / 3);
   const [page, setPage] = useState(pageFromUrl);
 
   useEffect(() => {
@@ -27,7 +27,7 @@ const Product = () => {
   return (
     <div className="flex  bg-white min-h-screen">
       <div className="flex-col-reverse p-8">
-        <h1 className="text-3xl font-bold mb-6">Products</h1>
+        <h1 className="text-3xl font-creep text-center font-bold mb-6">Products</h1>
 
         <div className="grid gap-10 grid-rows-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {products.length === 0 ? (
@@ -66,8 +66,8 @@ const Product = () => {
                 </div>
 
                 <div className="text-center uppercase p-4">
-                  <h3 className="text-lg font-semibold text-gray-900">{product.name}</h3>
-                  <p className="text-md font-bold text-gray-700">  ₹ {product.price}</p>
+                  <h3 className="text-2xl font-creep text-gray-900">{product.name}</h3>
+                  <p className="text-3xl font-creep text-red-600">  ₹ {product.price}</p>
                 </div>
 
               </div>

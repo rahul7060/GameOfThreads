@@ -9,7 +9,7 @@ const productsLoader = async ({ params }) => {
             console.error("Invalid API response:", response);
             return { products: [], total: 0 };
         }
-        const products = response.data.slice((page - 1) * 6, page * 6);
+        const products = response.data.slice((page - 1) * 8, page * 8);
         console.log("Loaded products:", products); // Debugging loaded products
 
         return { products, total: response.data.length };
