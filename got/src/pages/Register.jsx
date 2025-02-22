@@ -15,22 +15,33 @@ const Register = () => {
     e.preventDefault();
     try {
       const response = await authServices.reg({ name, email, password });
+  
       if (response.status === 201) {
-        alert(response.data.message);
+        Swal.fire({
+          icon: "success",
+          title: "Registration Successful!",
+          text: response.data.message,
+          timer: 2000,
+          showConfirmButton: false,
+        });
+  
+        dispatch(setName(""));
+        dispatch(setEmail(""));
+        dispatch(setPassword(""));
+  
+        setTimeout(() => {
+          navigate("/Login");
+        }, 2000); // Redirect after SweetAlert
       }
-      
-      dispatch(setName(""));
-      dispatch(setEmail(""));
-      dispatch(setPassword(""));
-      
-      setTimeout(() => {
-        navigate('/Login');
-      }, 500);
     } catch (error) {
-      alert(error.message);
+      Swal.fire({
+        icon: "error",
+        title: "Registration Failed",
+        text: error.response?.data?.message || error.message,
+      });
     }
   };
-
+  
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 bg-gray-50">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">

@@ -17,12 +17,22 @@ const cartServices = {
             return { error: "Failed to load cart." };
         }
     },
-    removeFromCart: async (productId) => {
+    removeFromCart: async (productId, size) => {
+        console.log(`Sending DELETE request to /cart/${productId}/${size}`);
         try {
-            const response = await instance.delete(`/cart/${productId}`);
+            const response = await instance.delete(`/cart/${productId}/${size}`);
             return response.data;
         } catch (error) {
+            console.error("Error in removeFromCart:", error.response?.data || error.message);
             return { error: "Failed to delete item." };
+        }
+    },
+    updateCart: async (productId, quantity, size) => {
+        try {
+            const response = await instance.patch(`/cart/${productId}`, { quantity, size });
+            return response.data;
+        } catch (error) {
+            return { error: "Failed to update quantity." };
         }
     }
 };

@@ -33,7 +33,7 @@ const Demim = () => {
   return (
     <div className="flex  bg-white min-h-screen">
       <div className="flex-col-reverse p-8">
-        <h1 className="text-3xl text-center uppercase font-creep mb-6">JOGGERs</h1>
+        <h1 className="text-3xl text-center uppercase font-creep mb-6">cargo</h1>
 
         <div className="grid gap-10 grid-rows-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {products.length === 0 ? (

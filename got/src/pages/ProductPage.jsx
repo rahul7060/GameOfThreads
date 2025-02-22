@@ -1,13 +1,13 @@
 
 import React, { useState } from "react";
-import { useLoaderData, useParams } from "react-router-dom";
+import { useLoaderData, useNavigate, useParams } from "react-router-dom";
 import cartServices from "../service/cartServices";
-
+import Swal from "sweetalert2";
 const ProductPage = () => {
   const product = useLoaderData();
   const { id } = useParams();
   const [selectedSize, setSelectedSize] = useState(null);
-
+const navigate = useNavigate();
   console.log("Product ID from Params:", id);
   console.log("Loaded Product Data:", product);
 
@@ -20,7 +20,16 @@ const ProductPage = () => {
   }
   const addToCart = async (id) => {
     if (!selectedSize) {
-        alert("Please select a size before adding to the cart.");
+      Swal.fire({
+        toast: true,
+        position: "top-right",
+        icon: "warning",
+        title: "Please select a size before adding to the cart!",
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+      });
+        // alert("Please select a size before adding to the cart.");
         return;
     }
 
@@ -28,9 +37,30 @@ const ProductPage = () => {
         const response = await cartServices.addToCart({ productId: id, quantity: 1, size: selectedSize });
 
         if (response.error) {
-            alert(response.error);
+          Swal.fire({
+            toast: true,
+            position: "top-right",
+            icon: "warning",
+            title: "response.error",
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true,
+          });
+            // alert(response.error);
         } else {
-            alert("Product added to cart successfully!");
+          Swal.fire({
+            toast: true,
+            position: "top-right",
+            icon: "warning",
+            title: "Product added to cart successfully!",
+            showConfirmButton: false,
+            timer: 500,
+            timerProgressBar: true,
+          });
+          setTimeout(() => {
+            navigate("/UserDashboard/cart");
+          }, 500); // Redirect after toast disappears
+            // alert("Product added to cart successfully!");
         }
     } catch (error) {
         alert("An error occurred while adding the product.");
