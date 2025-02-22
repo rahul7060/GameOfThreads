@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useLoaderData, useNavigate, useParams } from "react-router-dom";
 import { FaHeart, FaShoppingCart } from "react-icons/fa";
 
-const TeeAnyone = () => {
+const Tee = () => {
   const { products = [], total = 0 } = useLoaderData() || {};
 
   const navigate = useNavigate();
@@ -23,16 +23,17 @@ const TeeAnyone = () => {
 
   const updatePage = (newPage) => {
     if (newPage < 1 || newPage > totalPages) return;
-    navigate(`/TeeAnyone/${newPage}`);
+    navigate(`/UserDashboard/tee/${newPage}`);
+    setPage(newPage);
   };
   const productDetail = (id) => {
     if (!id) return console.error("Error: Product ID is missing!");
-    navigate(`/productPageAnyone/${id}`);
+    navigate(`/UserDashboard/productPage/${id}`);
   };
   return (
     <div className="flex  bg-white min-h-screen">
       <div className="flex-col-reverse p-8">
-        <h1 className="text-3xl text-center font-creep uppercase font-bold mb-6">elite tee</h1>
+        <h1 className="text-3xl text-center uppercase font-creep mb-6">TEE</h1>
 
         <div className="grid gap-10 grid-rows-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {products.length === 0 ? (
@@ -71,8 +72,8 @@ const TeeAnyone = () => {
                 </div>
 
                 <div className="text-center uppercase p-4">
-                  <h3 className="text-lg font-creep text-black">{product.name}</h3>
-                  <p className="text-2xl font-bold text-red-600">  ₹ {product.price}</p>
+                  <h3 className="text-lg font-semibold text-gray-900">{product.name}</h3>
+                  <p className="text-md font-bold text-gray-700">  ₹ {product.price}</p>
                 </div>
 
               </div>
@@ -125,4 +126,4 @@ const TeeAnyone = () => {
   );
 };
 
-export default TeeAnyone;
+export default Tee;

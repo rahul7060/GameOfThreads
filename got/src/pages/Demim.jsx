@@ -1,51 +1,45 @@
-import React, { useState } from "react";
-import { useLoaderData, useNavigate } from "react-router-dom";
-import { FaHeart, FaShoppingCart } from "react-icons/fa"; // Icons
+
+
+import React, { useEffect, useState } from "react";
+import { useLoaderData, useNavigate, useParams } from "react-router-dom";
+import { FaHeart, FaShoppingCart } from "react-icons/fa";
 
 const Demim = () => {
-  const { products, total } = useLoaderData() || { products: [], total: 0 };
+  const { products = [], total = 0 } = useLoaderData() || {};
+
   const navigate = useNavigate();
-  const [page, setPage] = useState(1);
+  const { page: currentPageParam } = useParams();
+  
+  const pageFromUrl = Number(currentPageParam) || 1;
+  const totalPages = Math.ceil(total / 3);
+  const [page, setPage] = useState(pageFromUrl);
 
-  // Filter only joggers
-  const joggers = products.filter(product => product.category.trim().toUpperCase() === 'TEE');
+  const jogger = products.filter(
+    (product) => product.category.trim().toUpperCase() === "DENIM"
+  );
+  useEffect(() => {
+    if (page !== pageFromUrl) setPage(pageFromUrl); // Prevent unnecessary re-renders
+  }, [pageFromUrl]);
 
-
-  const updatePage = (e) => {
-    const newPage = parseInt(e.target.textContent);
+  const updatePage = (newPage) => {
+    if (newPage < 1 || newPage > totalPages) return;
+    navigate(`/UserDashboard/demim/${newPage}`);
     setPage(newPage);
-    navigate(`/products/pages/${newPage}`);
   };
-
-  const previousPage = () => {
-    if (page > 1) {
-      setPage(page - 1);
-      navigate(`/products/pages/${page - 1}`);
-    }
-  };
-
-  const nextPage = () => {
-    if (page < Math.ceil(total / 5)) {
-      setPage(page + 1);
-      navigate(`/products/pages/${page + 1}`);
-    }
-  };
-
   const productDetail = (id) => {
     if (!id) return console.error("Error: Product ID is missing!");
     navigate(`/UserDashboard/productPage/${id}`);
   };
-
   return (
-    <div className="flex bg-gray-100 min-h-screen">
-      <div className="flex-1 p-8">
-        <h1 className="text-3xl font-creep font-bold mb-6">Joggers</h1>
+    <div className="flex  bg-white min-h-screen">
+      <div className="flex-col-reverse p-8">
+        <h1 className="text-3xl text-center uppercase font-creep mb-6">JOGGERs</h1>
 
-        <div className="grid gap-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-          {joggers.length === 0 ? (
-            <div className="text-center text-gray-500 text-lg">No joggers found.</div>
+        <div className="grid gap-10 grid-rows-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+          {products.length === 0 ? (
+            <div className="text-center text-gray-500 text-lg">No products found.</div>
           ) : (
-            joggers.map((product) => (
+            jogger.map((product) => (
               <div
                 key={product._id}
                 onClick={() => productDetail(product._id)}
@@ -65,7 +59,7 @@ const Demim = () => {
                   </span>
                 )}
 
-                <div className="relative p-6">
+                <div className="relative p-4">
                   <img
                     src={product.image}
                     alt={product.name}
@@ -78,20 +72,16 @@ const Demim = () => {
                 </div>
 
                 <div className="text-center uppercase p-4">
-                  <h3 className="text-lg font-semibold text-gray-900">
-                    {product.name}
-                  </h3>
-                  <p className="text-md font-bold text-gray-700">RS {product.price}</p>
+                  <h3 className="text-lg font-creep text-black">{product.name}</h3>
+                  <p className="text-2xl font-bold text-red-600">  ₹ {product.price}</p>
                 </div>
 
-                <button className="w-full flex items-center justify-center gap-2 bg-black text-white py-2 rounded-lg font-bold hover:bg-gray-900 transition-all">
-                  <FaShoppingCart /> Add to Cart
-                </button>
               </div>
             ))
           )}
         </div>
 
+        {/* Pagination */}
         <div className="mt-8 flex justify-center space-x-3">
           <button
             className={`px-5 py-2 rounded-full font-semibold ${
@@ -99,37 +89,34 @@ const Demim = () => {
                 ? "bg-gray-300 text-gray-500 cursor-not-allowed"
                 : "bg-black text-white hover:bg-gray-900"
             }`}
-            onClick={previousPage}
+            onClick={() => updatePage(page - 1)}
             disabled={page === 1}
           >
             ◀ Prev
           </button>
 
-          {Number.isFinite(total) &&
-            Array.from({ length: Math.ceil(total / 5) }, (_, i) => i + 1).map(
-              (pageNum) => (
-                <button
-                  key={pageNum}
-                  className={`px-4 py-2 rounded-full font-semibold ${
-                    page === pageNum
-                      ? "bg-black text-white scale-110 shadow-md"
-                      : "bg-gray-200 hover:bg-gray-300"
-                  }`}
-                  onClick={updatePage}
-                >
-                  {pageNum}
-                </button>
-              )
-            )}
+          {[...Array(totalPages)].map((_, i) => (
+            <button
+              key={i + 1}
+              className={`px-4 py-2 rounded-full font-semibold ${
+                page === i + 1
+                  ? "bg-black text-white scale-110 shadow-md"
+                  : "bg-gray-200 hover:bg-gray-300"
+              }`}
+              onClick={() => updatePage(i + 1)}
+            >
+              {i + 1}
+            </button>
+          ))}
 
           <button
             className={`px-5 py-2 rounded-full font-semibold ${
-              page >= Math.ceil(total / 5)
+              page >= totalPages
                 ? "bg-gray-300 text-gray-500 cursor-not-allowed"
                 : "bg-black text-white hover:bg-gray-900"
             }`}
-            onClick={nextPage}
-            disabled={page >= Math.ceil(total / 5)}
+            onClick={() => updatePage(page + 1)}
+            disabled={page >= totalPages}
           >
             Next ▶
           </button>

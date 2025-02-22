@@ -13,7 +13,7 @@ const ProductPageAnyone = () => {
       toast: true,
       position: "top-right", // Show it in the corner
       icon: "warning",
-      title: "You need to log in first!",
+      title: "You need to log to buy!",
       showConfirmButton: false,
       timer: 2000, // Auto close after 2 seconds
       timerProgressBar: true,
@@ -48,8 +48,8 @@ const ProductPageAnyone = () => {
 
         {/* Product Info */}
         <div className="w-full md:w-1/2 space-y-4">
-          <h1 className="text-2xl font-bold">{product.name}</h1>
-          <p className="text-lg font-semibold">MRP: ₹ {product.price}</p>
+          <h1 className="text-2xl font-creep">{product.name}</h1>
+          <p className="text-2xl text-red-600 font-semibold">MRP: ₹ {product.price}</p>
           <p className="text-sm text-gray-600">{product.description}</p>
 
           {/* Size Selection */}

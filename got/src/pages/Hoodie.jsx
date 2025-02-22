@@ -14,7 +14,7 @@ const Hoodie = () => {
   const totalPages = Math.ceil(total / 3);
   const [page, setPage] = useState(pageFromUrl);
 
-  const hoodie = products.filter(
+  const jogger = products.filter(
     (product) => product.category.trim().toUpperCase() === "HOODIE"
   );
   useEffect(() => {
@@ -23,7 +23,8 @@ const Hoodie = () => {
 
   const updatePage = (newPage) => {
     if (newPage < 1 || newPage > totalPages) return;
-    navigate(`/UserDashboard/product/${newPage}`);
+    navigate(`/UserDashboard/hoodie/${newPage}`);
+    setPage(newPage);
   };
   const productDetail = (id) => {
     if (!id) return console.error("Error: Product ID is missing!");
@@ -32,13 +33,13 @@ const Hoodie = () => {
   return (
     <div className="flex  bg-white min-h-screen">
       <div className="flex-col-reverse p-8">
-        <h1 className="text-3xl text-center uppercase font-creep mb-6">hoodie</h1>
+        <h1 className="text-3xl text-center uppercase font-creep mb-6">HOODIE</h1>
 
         <div className="grid gap-10 grid-rows-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-          {hoodie.length === 0 ? (
+          {products.length === 0 ? (
             <div className="text-center text-gray-500 text-lg">No products found.</div>
           ) : (
-            hoodie.map((product) => (
+            jogger.map((product) => (
               <div
                 key={product._id}
                 onClick={() => productDetail(product._id)}
@@ -66,13 +67,13 @@ const Hoodie = () => {
                   />
                 </div>
 
-                <div className="absolute top-2  right-2 flex space-x-2">
+                <div className="absolute top-2 right-2 flex space-x-2">
                   <FaHeart className="text-gray-400 hover:text-red-500 text-xl cursor-pointer" />
                 </div>
 
                 <div className="text-center uppercase p-4">
-                  <h3 className="text-lg font-semibold text-gray-900">{product.name}</h3>
-                  <p className="text-md font-bold text-gray-700">  ₹ {product.price}</p>
+                  <h3 className="text-lg font-creep text-black">{product.name}</h3>
+                  <p className="text-2xl font-bold text-red-600">  ₹ {product.price}</p>
                 </div>
 
               </div>

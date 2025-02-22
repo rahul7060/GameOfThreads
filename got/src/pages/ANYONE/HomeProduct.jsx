@@ -9,7 +9,7 @@ const HomeProduct = () => {
   const { page: currentPageParam } = useParams();
   
   const pageFromUrl = Number(currentPageParam) || 1;
-  const totalPages = Math.ceil(total / 1);
+  const totalPages = Math.ceil(total / 3);
   const [page, setPage] = useState(pageFromUrl);
 
   useEffect(() => {
@@ -22,12 +22,12 @@ const HomeProduct = () => {
   };
   const productDetail = (id) => {
     if (!id) return console.error("Error: Product ID is missing!");
-    navigate(`/AnyoneproductPage/${id}`);
+    navigate(`/productPageAnyone/${id}`);
   };
   return (
     <div className="flex  bg-white min-h-screen">
       <div className="flex-col-reverse p-8">
-        <h1 className="text-3xl font-bold mb-6">Products</h1>
+        <h1 className="text-3xl uppercase text-center font-creep mb-6">game of thread wardrobe</h1>
 
         <div className="grid gap-10 grid-rows-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {products.length === 0 ? (
@@ -66,8 +66,8 @@ const HomeProduct = () => {
                 </div>
 
                 <div className="text-center uppercase p-4">
-                  <h3 className="text-lg font-semibold text-gray-900">{product.name}</h3>
-                  <p className="text-md font-bold text-gray-700">  ₹ {product.price}</p>
+                  <h3 className="text-lg font-creep text-black">{product.name}</h3>
+                  <p className="text-2xl font-bold text-red-600">  ₹ {product.price}</p>
                 </div>
 
               </div>

@@ -10,7 +10,7 @@ const DenimAnyone = () => {
   const { page: currentPageParam } = useParams();
   
   const pageFromUrl = Number(currentPageParam) || 1;
-  const totalPages = Math.ceil(total / 1);
+  const totalPages = Math.ceil(total / 3);
   const [page, setPage] = useState(pageFromUrl);
 
   const jogger = products.filter(
@@ -22,7 +22,7 @@ const DenimAnyone = () => {
 
   const updatePage = (newPage) => {
     if (newPage < 1 || newPage > totalPages) return;
-    navigate(`/product/${newPage}`);
+    navigate(`/DenimAnyone/${newPage}`);
   };
   const productDetail = (id) => {
     if (!id) return console.error("Error: Product ID is missing!");
@@ -70,8 +70,8 @@ const DenimAnyone = () => {
                 </div>
 
                 <div className="text-center uppercase p-4">
-                  <h3 className="text-lg font-semibold text-gray-900">{product.name}</h3>
-                  <p className="text-md font-bold text-gray-700">  ₹ {product.price}</p>
+                  <h3 className="text-lg font-creep text-gray-900">{product.name}</h3>
+                  <p className="text-xl font-bold text-red-600">  ₹ {product.price}</p>
                 </div>
 
               </div>

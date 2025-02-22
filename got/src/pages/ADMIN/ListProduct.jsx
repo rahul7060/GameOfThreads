@@ -7,7 +7,7 @@ import {
   setPrice, setStock, setImage 
 } from "../../Redux/features/auth/AddProductSlice";
 import productServices from "../../service/productServices";
-
+import Swal from "sweetalert2";
 const ListProduct = () => {
   const dispatch = useDispatch();
   const name = useSelector(selectName);
@@ -50,8 +50,16 @@ const ListProduct = () => {
       const response = await productServices.createProduct(formData);
 
       if (response.status === 201) {
-        alert("Product uploaded successfully!");
+        // alert("Product uploaded successfully!");
         // Reset form after successful upload
+        Swal.fire({
+                  title: "Success!",
+                  text: response.data.message,
+                  icon: "success",
+                  showConfirmButton: false,
+                   timer:2000
+                });
+          
         dispatch(setName(""));
         dispatch(setDescription(""));
         dispatch(setPrice(""));
