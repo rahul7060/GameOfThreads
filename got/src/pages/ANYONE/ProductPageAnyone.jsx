@@ -13,7 +13,7 @@ const ProductPageAnyone = () => {
       toast: true,
       position: "top-right", // Show it in the corner
       icon: "warning",
-      title: "You need to log to buy!",
+      title: "You need to login to buy!",
       showConfirmButton: false,
       timer: 2000, // Auto close after 2 seconds
       timerProgressBar: true,

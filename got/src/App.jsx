@@ -203,8 +203,9 @@ const routes = [
       },
       
       {
-        path: "cart",
+        path: "cart/:id?",
         element: <Cart/>,
+        loader: productIdLoader,
         hydrateFallbackElement: <div>Loading...</div>,
       },
       
@@ -266,6 +267,7 @@ const router = createBrowserRouter(routes, {
 
 const App = () => {
   return (
+  
     <Provider store={Store}>
       <RouterProvider
         router={router}
@@ -274,6 +276,7 @@ const App = () => {
         }}
       />
     </Provider>
+   
   )
 }
 

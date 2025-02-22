@@ -1,5 +1,7 @@
+
 import React, { useState } from "react";
 import { useLoaderData, useParams } from "react-router-dom";
+import cartServices from "../service/cartServices";
 
 const ProductPage = () => {
   const product = useLoaderData();
@@ -16,6 +18,25 @@ const ProductPage = () => {
       </p>
     );
   }
+  const addToCart = async (id) => {
+    if (!selectedSize) {
+        alert("Please select a size before adding to the cart.");
+        return;
+    }
+
+    try {
+        const response = await cartServices.addToCart({ productId: id, quantity: 1, size: selectedSize });
+
+        if (response.error) {
+            alert(response.error);
+        } else {
+            alert("Product added to cart successfully!");
+        }
+    } catch (error) {
+        alert("An error occurred while adding the product.");
+    }
+};
+
 
   return (
     <div className="max-w-5xl  mx-auto p-6 bg-white">
@@ -53,7 +74,7 @@ const ProductPage = () => {
           </div>
 
           {/* Add to Cart & Favourite Button */}
-          <button className="w-full bg-black text-white py-3 rounded-lg font-bold hover:bg-green-500">
+          <button onClick={() => addToCart(product._id)} className="w-full bg-black text-white py-3 rounded-lg font-bold hover:bg-green-500">
             Add to Bag
           </button>
           <button className="w-full border border-gray-400 py-3 rounded-lg font-bold hover:bg-gray-100">
