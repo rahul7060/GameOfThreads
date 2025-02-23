@@ -5,7 +5,7 @@ import {
     setPinCode, setPhone, setEmail, clearDeliveryDetails 
 } from "../Redux/features/auth/DeliverySlice";
 import deliveryServices from "../service/deliveryServices";
-
+import handlePayment from "../service/handlePayment"; 
 const Order = () => {
     const dispatch = useDispatch();
     const formData = useSelector((state) => state.delivery);
@@ -36,7 +36,13 @@ const Order = () => {
             alert(error.message || "Failed to update address");
         }
     };
-
+    const handlePaymentClick = async () => {
+        if (!formData.phone || !formData.address || !formData.firstName) {
+            alert("Please fill all required details before proceeding to payment.");
+            return;
+        }
+        handlePayment(500, formData); // Example: Passing ₹500 as the amount
+    }
     return (
         <div className="max-w-2xl mx-auto p-6 bg-white shadow-lg rounded-lg">
             <h2 className="text-2xl font-pop font-extrabold mb-4">SHIPPING DETAILS</h2>
@@ -137,7 +143,8 @@ const Order = () => {
                 </div>
 
                 <button
-                    type="submit"
+                    type="button"
+                    onClick={handlePaymentClick}
                     className="w-full bg-black text-white py-3 rounded-lg text-lg font-semibold hover:bg-gray-800 transition"
                 >
                     Pay now
@@ -146,5 +153,6 @@ const Order = () => {
         </div>
     );
 };
+
 
 export default Order;

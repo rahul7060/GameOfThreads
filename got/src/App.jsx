@@ -42,6 +42,7 @@ import EliteTee from "./pages/EliteTee";
 
 
 
+
 const routes = [
   {
     path: "/",
@@ -218,6 +219,7 @@ const routes = [
         element: <Order/>,
         hydrateFallbackElement: <div>Loading...</div>,
       },
+    
       
     ]
   },

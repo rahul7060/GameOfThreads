@@ -34,6 +34,24 @@ const cartServices = {
         } catch (error) {
             return { error: "Failed to update quantity." };
         }
+    },  
+      createOrder: async (data) => {
+        try {
+            const response = await instance.post('/create-order', data, { withCredentials: true });
+
+            return response.data;
+        } catch (error) {
+            return { error: error.response?.data || "An error occurred while creating the order." };
+        }
+    },
+
+    verifyPayment: async (data) => {
+        try {
+            const response = await instance.post('/verify-payment', data, { withCredentials: true });
+            return response.data;
+        } catch (error) {
+            return { error: error.response?.data || "An error occurred while verifying payment." };
+        }
     }
 };
 
