@@ -1,12 +1,9 @@
-
-
 import React, { useEffect, useState } from "react";
 import { useLoaderData, useNavigate, useParams } from "react-router-dom";
-import { FaHeart, FaShoppingCart } from "react-icons/fa";
+import { FaHeart } from "react-icons/fa";
 
-const Demim = () => {
+const Denim = () => {
   const { products = [], total = 0 } = useLoaderData() || {};
-
   const navigate = useNavigate();
   const { page: currentPageParam } = useParams();
   
@@ -14,68 +11,61 @@ const Demim = () => {
   const totalPages = Math.ceil(total / 3);
   const [page, setPage] = useState(pageFromUrl);
 
-  const jogger = products.filter(
+  const denimProducts = products.filter(
     (product) => product.category.trim().toUpperCase() === "DENIM"
   );
+
   useEffect(() => {
-    if (page !== pageFromUrl) setPage(pageFromUrl); // Prevent unnecessary re-renders
+    if (page !== pageFromUrl) setPage(pageFromUrl);
   }, [pageFromUrl]);
 
   const updatePage = (newPage) => {
     if (newPage < 1 || newPage > totalPages) return;
-    navigate(`/UserDashboard/demim/${newPage}`);
+    navigate(`/UserDashboard/denim/${newPage}`);
     setPage(newPage);
   };
+
   const productDetail = (id) => {
     if (!id) return console.error("Error: Product ID is missing!");
     navigate(`/UserDashboard/productPage/${id}`);
   };
-  return (
-    <div className="flex  bg-white min-h-screen">
-      <div className="flex-col-reverse p-8">
-        <h1 className="text-3xl text-center uppercase font-creep mb-6">cargo</h1>
 
-        <div className="grid gap-10 grid-rows-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-          {products.length === 0 ? (
+  return (
+    <div className=" bg-white min-h-screen">
+      <div className="flex-col p-8 w-full">
+        <h1 className="text-3xl text-center uppercase font-creep mb-6">Denim</h1>
+
+        {/* Fixed Box Size for LG & XL */}
+        <div className="grid gap-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 max-w-6xl mx-auto">
+          {denimProducts.length === 0 ? (
             <div className="text-center text-gray-500 text-lg">No products found.</div>
           ) : (
-            jogger.map((product) => (
+            denimProducts.map((product) => (
               <div
                 key={product._id}
                 onClick={() => productDetail(product._id)}
-                className="relative group cursor-pointer p-4 bg-white rounded-2xl shadow-md hover:shadow-lg transition-all"
+                className="relative cursor-pointer p-4 bg-white rounded-2xl shadow-xl w-full"
+                style={{ maxWidth: "350px", margin: "auto" }} // Fixed box width
               >
-                {product.label && (
-                  <span
-                    className={`absolute top-2 left-2 px-2 py-1 text-xs font-bold text-white rounded ${
-                      product.label === "New"
-                        ? "bg-blue-500"
-                        : product.label === "Hot Promo"
-                        ? "bg-red-500"
-                        : "bg-green-500"
-                    }`}
-                  >
-                    {product.label}
-                  </span>
-                )}
+                {/* Heart Icon */}
+                <div className="absolute top-4 right-4">
+                  <FaHeart className="text-gray-400 text-xl cursor-pointer" />
+                </div>
 
-                <div className="relative p-4">
+                {/* Product Image */}
+                <div className="relative p-2">
                   <img
                     src={product.image}
                     alt={product.name}
-                    className="w-full h-72 object-cover rounded-xl"
+       className="w-full h-72 sm:h-80 md:h-96 lg:h-auto object-contain rounded-xl"
                   />
                 </div>
 
-                <div className="absolute top-2 right-2 flex space-x-2">
-                  <FaHeart className="text-gray-400 hover:text-red-500 text-xl cursor-pointer" />
-                </div>
-
+                {/* Product Details */}
                 <div className="text-center uppercase p-4">
-                  <h3 className="text-lg font-creep text-black">{product.name}</h3>
-                  <p className="text-2xl font-bold text-red-600">  ₹ {product.price}</p>
+                  <h3 className="text-xl font-bold tracking-wider">{product.name}</h3>
+                  <p className="text-2xl font-semibold text-red-600">₹ {product.price}</p>
                 </div>
-
               </div>
             ))
           )}
@@ -85,9 +75,7 @@ const Demim = () => {
         <div className="mt-8 flex justify-center space-x-3">
           <button
             className={`px-5 py-2 rounded-full font-semibold ${
-              page === 1
-                ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                : "bg-black text-white hover:bg-gray-900"
+              page === 1 ? "bg-gray-300 text-gray-500 cursor-not-allowed" : "bg-black text-white"
             }`}
             onClick={() => updatePage(page - 1)}
             disabled={page === 1}
@@ -99,9 +87,7 @@ const Demim = () => {
             <button
               key={i + 1}
               className={`px-4 py-2 rounded-full font-semibold ${
-                page === i + 1
-                  ? "bg-black text-white scale-110 shadow-md"
-                  : "bg-gray-200 hover:bg-gray-300"
+                page === i + 1 ? "bg-black text-white" : "bg-gray-200"
               }`}
               onClick={() => updatePage(i + 1)}
             >
@@ -111,9 +97,7 @@ const Demim = () => {
 
           <button
             className={`px-5 py-2 rounded-full font-semibold ${
-              page >= totalPages
-                ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                : "bg-black text-white hover:bg-gray-900"
+              page >= totalPages ? "bg-gray-300 text-gray-500 cursor-not-allowed" : "bg-black text-white"
             }`}
             onClick={() => updatePage(page + 1)}
             disabled={page >= totalPages}
@@ -126,4 +110,4 @@ const Demim = () => {
   );
 };
 
-export default Demim;
+export default Denim;

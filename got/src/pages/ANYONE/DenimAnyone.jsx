@@ -1,7 +1,6 @@
-
 import React, { useEffect, useState } from "react";
 import { useLoaderData, useNavigate, useParams } from "react-router-dom";
-import { FaHeart, FaShoppingCart } from "react-icons/fa";
+import { FaHeart } from "react-icons/fa";
 
 const DenimAnyone = () => {
   const { products = [], total = 0 } = useLoaderData() || {};
@@ -16,26 +15,34 @@ const DenimAnyone = () => {
   const jogger = products.filter(
     (product) => product.category.trim().toUpperCase() === "DENIM"
   );
+
   useEffect(() => {
-    if (page !== pageFromUrl) setPage(pageFromUrl); // Prevent unnecessary re-renders
+    if (page !== pageFromUrl) setPage(pageFromUrl);
   }, [pageFromUrl]);
 
   const updatePage = (newPage) => {
     if (newPage < 1 || newPage > totalPages) return;
     navigate(`/DenimAnyone/${newPage}`);
   };
+
   const productDetail = (id) => {
     if (!id) return console.error("Error: Product ID is missing!");
     navigate(`/productPageAnyone/${id}`);
   };
-  return (
-    <div className="flex  bg-white min-h-screen">
-      <div className="flex-col-reverse p-8">
-        <h1 className="text-3xl text-center uppercase font-creep font-bold mb-6">denim cargo jogger</h1>
 
-        <div className="grid gap-10 grid-rows-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+  return (
+    <div className="bg-white min-h-screen">
+      <div className="container mx-auto px-4 py-8">
+        <h1 className="text-3xl text-center uppercase font-creep font-bold mb-6">
+          Denim Cargo Jogger
+        </h1>
+
+        {/* Updated Grid Layout for Small Screens */}
+        <div className="grid gap-6 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
           {products.length === 0 ? (
-            <div className="text-center text-gray-500 text-lg">No products found.</div>
+            <div className="text-center text-gray-500 text-lg">
+              No products found.
+            </div>
           ) : (
             jogger.map((product) => (
               <div
@@ -43,6 +50,7 @@ const DenimAnyone = () => {
                 onClick={() => productDetail(product._id)}
                 className="relative group cursor-pointer p-4 bg-white rounded-2xl shadow-md hover:shadow-lg transition-all"
               >
+                {/* Product Label (New, Hot Promo, etc.) */}
                 {product.label && (
                   <span
                     className={`absolute top-2 left-2 px-2 py-1 text-xs font-bold text-white rounded ${
@@ -57,23 +65,29 @@ const DenimAnyone = () => {
                   </span>
                 )}
 
+                {/* Product Image - Fixed Scaling */}
                 <div className="relative p-4">
                   <img
                     src={product.image}
                     alt={product.name}
-                    className="w-full h-72 object-cover rounded-xl"
+  className="w-full h-72 sm:h-80 md:h-96 lg:h-auto object-contain rounded-xl"
                   />
                 </div>
 
+                {/* Wishlist Icon */}
                 <div className="absolute top-2 right-2 flex space-x-2">
                   <FaHeart className="text-gray-400 hover:text-red-500 text-xl cursor-pointer" />
                 </div>
 
+                {/* Product Name & Price */}
                 <div className="text-center uppercase p-4">
-                  <h3 className="text-lg font-creep text-gray-900">{product.name}</h3>
-                  <p className="text-xl font-bold text-red-600">  ₹ {product.price}</p>
+                  <h3 className="text-lg font-creep text-gray-900">
+                    {product.name}
+                  </h3>
+                  <p className="text-xl font-bold text-red-600">
+                    ₹ {product.price}
+                  </p>
                 </div>
-
               </div>
             ))
           )}

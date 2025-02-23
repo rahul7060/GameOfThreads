@@ -1,58 +1,59 @@
-import React from 'react'
+import React from "react";
 
-   
 const Footer = () => {
-  
-    
-      return (
-        <footer className="bg-black text-white  py-10 px-6 md:px-16">
-          <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Support Section */}
-            <div>
-              <h3 className="font-semibold font-creep mb-2">SUPPORT</h3>
-              <ul className="space-y-2 text-gray-400">
-                <li>Return Policy</li>
-                <li>Shipping FAQ</li>
-                <li>Contact Us</li>
-              </ul>
-            </div>
-    
-            {/* Shop Now Section */}
-            <div>
-              <h3 className="font-semibold mb-2">SHOP NOW</h3>
-              <ul className="space-y-2 text-gray-400">
-                <li>New Drop</li>
-                <li>Tops</li>
-                <li>Bottoms</li>
-              </ul>
-            </div>
-    
-            {/* Insider Signup Section */}
-            <div>
-              <h3 className="font-semibold mb-2">BECOME AN INSIDER</h3>
-              <p className="text-gray-400 text-sm mb-4">
-                Get 10% OFF your first order when you join EDGE.
-              </p>
-            
+  return (
+    <footer className="bg-black text-white p-6">
+      <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 text-center md:text-left">
+        {/* Support Section */}
+        <div>
+          <h4 className="text-lg font-creep   mb-2">SUPPORT</h4>
+          <p>Mon - Sat | 9:00AM to 9:00PM (EST)</p>
+          <p>Excludes Public Holidays</p>
+          <p>Chat with us or send an email. We respond within 24-48 hours.</p>
+        </div>
+
+        {/* Order Section */}
+        <div>
+          <h4 className="text-lg font-creep   mb-2">ORDER</h4>
+          <ul className="space-y-1">
+            <li><a href="#">Track</a></li>
+            <li><a href="#">Exchange & Return</a></li>
+            <li><a href="#">Become Insider</a></li>
+          </ul>
+        </div>
+
+        {/* Information Section */}
+        <div>
+          <h4 className="text-lg font-creep  font-bold mb-2">INFORMATION</h4>
+          <ul className="space-y-1">
+            <li><a href="#">Shipping Policy</a></li>
+            <li><a href="#">Privacy</a></li>
+            <li><a href="#">Get 20% OFF</a></li>
+            <li><a href="#">Terms & Conditions</a></li>
+          </ul>
+        </div>
+
+        {/* Social Media Section */}
+        <div>
+          <h4 className="text-lg font-creep  font-bold mb-2">SOCIAL MEDIA</h4>
+          <div className="flex justify-center md:justify-start space-x-4">
+            <a href="https://www.instagram.com/">
+              <img src="image/Instagram.png" alt="Instagram" className="w-6 h-6" />
+            </a>
+            <a href="https://wa.me/message">
+              <img src="image/WhatsApp.png" alt="WhatsApp" className="w-6 h-6" />
+            </a>
           </div>
-    </div>
-          {/* Bottom Section */}
-          <div className="mt-8 text-center text-gray-400 text-sm">
-            <div className="flex justify-center items-center gap-2 cursor-pointer">
-              <span className="flex items-center gap-1">
-                <span className="inline-block w-5 h-5 bg-[url('/us-flag.svg')] bg-cover"></span>
-         
-              </span>
+          <p className="mt-4">All rights reserved</p>
+        </div>
+      </div>
 
-            </div>
-            <p className="mt-2"> 2025 Game Of Threads</p>
-        
-          </div>
-        </footer>
-      );
-    }
-    
-
-
+      {/* Copyright Section */}
+      <div className="bg-black text-white font-creep  text-center mt-6 p-4 border-t border-gray-700">
+        <p>© 2025 GAME OF THREAD</p>
+      </div>
+    </footer>
+  );
+};
 
 export default Footer;

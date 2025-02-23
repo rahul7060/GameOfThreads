@@ -30,11 +30,11 @@ const EliteTee = () => {
     navigate(`/UserDashboard/productPage/${id}`);
   };
   return (
-    <div className="flex  bg-white min-h-screen">
+    <div className=" bg-white min-h-screen">
       <div className="flex-col-reverse p-8">
         <h1 className="text-3xl text-center text-amber-200 uppercase font-creep mb-6">EliteTee</h1>
 
-        <div className="grid gap-10 grid-rows-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+        <div className="grid gap-6 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
           {EliteTee.length === 0 ? (
             <div className="text-center text-gray-500 text-lg">No products found.</div>
           ) : (
@@ -62,7 +62,7 @@ const EliteTee = () => {
                   <img
                     src={product.image}
                     alt={product.name}
-                    className="w-full h-72 object-cover rounded-xl"
+                       className="w-full h-72 sm:h-80 md:h-96 lg:h-auto object-contain rounded-xl"
                   />
                 </div>
 

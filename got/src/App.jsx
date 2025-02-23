@@ -48,6 +48,10 @@ const routes = [
     element: <Layout/>,
     children: [
       {
+        index: true, // This makes "register" the default route
+        element: <Dashboard />,
+      },
+      {
         path: "dashboard",
         element: <Dashboard />,
   
