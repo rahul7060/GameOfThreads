@@ -64,7 +64,7 @@ const Cart = () => {
   
   
     return (
-        <div className="max-w-5xl mx-auto p-6 bg-white shadow-lg rounded-lg">
+        <div className="max-w-5xl mx-auto p-6 font-[Poppins] font-extrabold bg-white shadow-lg rounded-lg">
             <h1 className="text-3xl font-bold mb-4">Your Shopping Cart</h1>
             {error && <p className="text-red-500">{error}</p>}
             {cartItems.length === 0 ? (
@@ -81,7 +81,7 @@ const Cart = () => {
                             <button className="px-2 py-1 text-red-500" onClick={() => removeFromCart(item.product._id, item.size)}>Remove</button>
                         </div>
                     ))}
-                    <h2 className="text-xl font-bold mt-4">Total: ₹{totalPrice}</h2>
+                    <h2 className="text-xl text-red-500 font-[Poppins] font-extrabold mt-4">Total     :   ₹{totalPrice}</h2>
                     <button onClick={() => navigate("/checkout")} className="mt-4 px-6 py-2 bg-black text-white rounded-lg">Checkout</button>
                 </div>
             )}

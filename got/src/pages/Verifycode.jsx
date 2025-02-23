@@ -51,13 +51,13 @@ const handlecode = async (e) => {
       <div class="mt-4 flex justify-between items-center">
         <button
           type="button"
-          class="text-indigo-600 hover:underline text-sm"
+          class="text-black hover:underline text-sm"
         >
           Resend code
         </button>
         <button
           type="submit"
-          class="bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+          class="bg-black text-white py-2 px-4 rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
           
         >
           Submit code

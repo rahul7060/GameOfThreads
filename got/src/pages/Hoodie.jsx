@@ -72,8 +72,8 @@ const Hoodie = () => {
                 </div>
 
                 <div className="text-center uppercase p-4">
-                  <h3 className="text-lg font-creep text-black">{product.name}</h3>
-                  <p className="text-2xl font-bold text-red-600">  ₹ {product.price}</p>
+                  <h3 className="text-lg font-[Poppins] font-extrabold text-black">{product.name}</h3>
+                  <p className="text-2xl font-[Poppins] font-extrabold text-red-600">  ₹ {product.price}</p>
                 </div>
 
               </div>

@@ -81,9 +81,9 @@ const navigate = useNavigate();
 
         {/* Product Info */}
         <div className="w-full md:w-1/2 space-y-4">
-          <h1 className="text-4xl font-creep">{product.name}</h1>
-          <p className="text-2xl font-creep text-red-600 font-semibold">rs: ₹ {product.price}</p>
-          <p className="text-sm text-gray-600">{product.description}</p>
+          <h1 className="text-4xl font-[Poppins] font-extrabold">{product.name}</h1>
+          <p className="text-2xl font-[Poppins] font-extrabold text-red-600 ">RS: ₹ {product.price}</p>
+          <p className="text-sm font-pop  text-gray-600">{product.description}</p>
 
           {/* Size Selection */}
           <div>
@@ -112,7 +112,7 @@ const navigate = useNavigate();
           </button>
 
           {/* Shipping Info */}
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-red-600">
             Inclusive of all taxes | Free Shipping
           </p>
         </div>

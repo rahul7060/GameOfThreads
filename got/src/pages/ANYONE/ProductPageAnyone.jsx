@@ -48,9 +48,9 @@ const ProductPageAnyone = () => {
 
         {/* Product Info */}
         <div className="w-full md:w-1/2 space-y-4">
-          <h1 className="text-2xl font-creep">{product.name}</h1>
-          <p className="text-2xl text-red-600 font-semibold">MRP: ₹ {product.price}</p>
-          <p className="text-sm text-gray-600">{product.description}</p>
+          <h1 className="text-2xl font-[Poppins] font-extrabold">{product.name}</h1>
+          <p className="text-2xl text-red-600 font-[Poppins] font-extrabold">MRP: ₹ {product.price}</p>
+          <p className="text-sm font-[Poppins] font-extrabold">{product.description}</p>
 
           {/* Size Selection */}
           <div>

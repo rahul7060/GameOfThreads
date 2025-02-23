@@ -62,7 +62,7 @@ try {
         type="password"
         id="confirmPassword"
         name="confirmPassword"
-        class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-indigo-500 sm:text-sm"
         placeholder="Re-enter new password"
         required
 value={confirmPassword}
@@ -72,7 +72,7 @@ onChange={(e)=>dispatch(setConfirmPassword(e.target.value))}
     
       <button
         type="submit"
-        class="mt-6 w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+        class="mt-6 w-full bg-black text-white py-2 px-4 rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
       >
         Save changes and sign in
       </button>

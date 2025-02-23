@@ -57,8 +57,8 @@ const Product = () => {
 
                 {/* Product Details */}
                 <div className="text-center uppercase p-4">
-                  <h3 className="text-xl font-bold tracking-wider">{product.name}</h3>
-                  <p className="text-2xl font-semibold text-red-600">₹ {product.price}</p>
+                  <h3 className="text-2xl text-black font-[Poppins] font-extrabold tracking-wider">{product.name}</h3>
+                  <p className="text-2xl font-[Poppins] font-extrabold text-red-600">₹ {product.price}</p>
                 </div>
               </div>
             ))

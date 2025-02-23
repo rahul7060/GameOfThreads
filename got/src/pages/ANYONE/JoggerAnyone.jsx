@@ -81,10 +81,10 @@ const JoggerAnyone = () => {
 
                 {/* Product Name & Price */}
                 <div className="text-center uppercase p-4">
-                  <h3 className="text-lg font-creep text-gray-900">
+                  <h3 className="font-[Poppins] font-extrabold">
                     {product.name}
                   </h3>
-                  <p className="text-xl font-bold text-red-600">
+                  <p className="text-xl font-[Poppins] font-extrabold text-red-600">
                     ₹ {product.price}
                   </p>
                 </div>

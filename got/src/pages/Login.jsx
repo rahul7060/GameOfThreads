@@ -22,13 +22,15 @@ const Login = () => {
         const userRole = response.data.user?.role; 
   
         Swal.fire({
-          title: "Success!",
-          text: response.data.message,
-          icon: "success",
+          toast: true,
+          position: "top-right",
+          icon: "warning",
+          title: "login successfull",
           showConfirmButton: false,
-          timer: 2000, // Auto close in 2 seconds
+          timer: 1000,
+          timerProgressBar: true,
         });
-  
+     
         dispatch(setEmail(""));
         dispatch(setPassword(""));
   
@@ -38,7 +40,7 @@ const Login = () => {
           } else {
             navigate('/UserDashboard');
           }
-        }, 2000); // Navigate after showing the alert
+        }, 1000); // Navigate after showing the alert
       } else {
         Swal.fire({
           title: "Login Failed",
@@ -76,12 +78,12 @@ const Login = () => {
               required
               value={email}
               onChange={(e) => dispatch(setEmail(e.target.value))}
-              className="block w-full mt-2 rounded-md bg-white px-3 py-2 text-gray-900   outline-gray-300 placeholder-gray-400 focus:outline-2 focus:outline-indigo-600"
+              className="block w-full mt-2 rounded-md bg-white px-3 py-2 text-gray-900   outline-black placeholder-gray-400 focus:outline-2 focus:outline-black"
             />
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-900">
+            <label htmlFor="password" className="block text-sm font-medium text-gray-900 outline-black placeholder-gray-400 focus:outline-2 focus:outline-black  ">
               Password
             </label>
             <input
@@ -90,7 +92,7 @@ const Login = () => {
               required
               value={password}
               onChange={(e) => dispatch(setPassword(e.target.value))}
-              className="block w-full mt-2 rounded-md bg-white px-3 py-2 text-gray-900  outline-gray-950 placeholder-gray-400  focus:outline-indigo-600"
+              className="block w-full mt-2 rounded-md bg-white px-3 py-2 text-gray-900  outline-black placeholder-black  focus:outline-black"
             />
           </div>
           
@@ -98,21 +100,21 @@ const Login = () => {
 
           <button
             type="submit"
-            className="w-full flex justify-center rounded-md bg-indigo-600 px-3 py-2 text-white font-semibold hover:bg-indigo-500 focus:outline  focus:outline-indigo-600"
+            className="w-full flex justify-center rounded-md bg-black px-3 py-2 text-white font-semibold hover:bg-green-600 focus:outline  focus:outline-black"
           >
             Sign in
           </button>
         </form>
 
         <p className="mt-5 text-center text-sm text-gray-500">
-          <Link to="/Resetpassword" className="text-indigo-600 hover:text-indigo-500">
+          <Link to="/Resetpassword" className="text-black hover:text-indigo-500">
             Forgot password?
           </Link>
         </p>
 
         <p className="mt-5 text-center text-sm text-gray-500">
           Not a member? 
-          <Link to="/Register" className="text-indigo-600 font-semibold hover:text-indigo-500">
+          <Link to="/Register" className="text-black0 font-semibold hover:text-indigo-500">
             Sign up
           </Link>
         </p>

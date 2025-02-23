@@ -29,7 +29,7 @@ navigate('/Verifycode')
     <div className="bg-gray-100 flex items-center justify-center h-screen">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-sm">
         <div className="flex justify-center mb-4">
-   <p className='text-fuchsia-600 font-creep text-5xl' >GAME OF THREAD</p>
+   <p className='text-black font-creep text-5xl' >GAME OF THREAD</p>
         </div>
         <h2 className="text-center text-xl font-semibold mb-4">
           Trouble logging in?
@@ -45,12 +45,12 @@ navigate('/Verifycode')
             value={email}
             onChange={(e)=>dispatch(setEmail(e.target.value))}
           />
-          <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded">
+          <button type="submit" className="w-full bg-black text-white p-2 rounded">
             Send login link
           </button>
         </form>
         <div className="text-center mt-4">
-          <a href="#" className="text-blue-500">
+          <a href="#" className="text-black">
             Can't reset your password?
           </a>
         </div>
@@ -58,12 +58,12 @@ navigate('/Verifycode')
           <span className="text-gray-600">|</span>
         </div>
         <div className="text-center mt-4">
-          <Link to="/Register" className="text-blue-500">
+          <Link to="/Register" className="text-black">
             Create new account
           </Link>
         </div>
         <div className="text-center mt-4">
-          <Link to='/Login' className="text-blue-500">
+          <Link to='/Login' className="text-black">
             Back to login
           </Link>
         </div>

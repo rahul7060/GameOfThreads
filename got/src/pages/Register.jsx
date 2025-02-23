@@ -63,18 +63,18 @@ const Register = () => {
           <input
             type="email"
             placeholder="Email"
-            className="block w-full px-3 py-2 rounded-md bg-white border border-gray-300  focus:outline-indigo-600"
+            className="block w-full px-3 py-2 rounded-md bg-white border border-black  focus:outline-black"
             value={email}
             onChange={(e) => dispatch(setEmail(e.target.value))}
           />
           <input
             type="password"
             placeholder="Password"
-            className="block w-full px-3 py-2 rounded-md bg-white border border-gray-300  focus:outline-indigo-600"
+            className="block w-full px-3 py-2 rounded-md bg-white border border-black focus:outline-black"
             value={password}
             onChange={(e) => dispatch(setPassword(e.target.value))}
           />
-          <button type="submit" className="w-full flex justify-center rounded-md bg-indigo-600 px-3 py-2 text-white font-semibold hover:bg-indigo-500  focus:outline-2 focus:outline-indigo-600">
+          <button type="submit" className="w-full flex justify-center rounded-md bg-black px-3 py-2 text-white font-semibold hover:bg-green-600 focus:outline-2 focus:outline-indigo-600">
             Sign Up
           </button>
         </form>
