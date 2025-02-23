@@ -82,7 +82,7 @@ const Cart = () => {
                         </div>
                     ))}
                     <h2 className="text-xl text-red-500 font-[Poppins] font-extrabold mt-4">Total     :   ₹{totalPrice}</h2>
-                    <button onClick={() => navigate("/checkout")} className="mt-4 px-6 py-2 bg-black text-white rounded-lg">Checkout</button>
+                    <button onClick={() => navigate("/UserDashboard/Order")} className="mt-4 px-6 py-2 bg-black text-white rounded-lg">Checkout</button>
                 </div>
             )}
         </div>

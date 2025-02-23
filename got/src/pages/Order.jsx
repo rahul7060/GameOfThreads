@@ -1,115 +1,150 @@
-import React from 'react'
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { 
+    setFirstName, setLastName, setAddress, setLandmark, setCity, setState, 
+    setPinCode, setPhone, setEmail, clearDeliveryDetails 
+} from "../Redux/features/auth/DeliverySlice";
+import deliveryServices from "../service/deliveryServices";
 
+const Order = () => {
+    const dispatch = useDispatch();
+    const formData = useSelector((state) => state.delivery);
 
-    import { useState } from "react";
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        switch (name) {
+            case "firstName": dispatch(setFirstName(value)); break;
+            case "lastName": dispatch(setLastName(value)); break;
+            case "address": dispatch(setAddress(value)); break;
+            case "landmark": dispatch(setLandmark(value)); break;
+            case "city": dispatch(setCity(value)); break;
+            case "state": dispatch(setState(value)); break;
+            case "pinCode": dispatch(setPinCode(value)); break;
+            case "phone": dispatch(setPhone(value)); break;
+            case "email": dispatch(setEmail(value)); break;
+            default: break;
+        }
+    };
 
-    const Order = () => {
-      const [email, setEmail] = useState("");
-      const [formData, setFormData] = useState({
-        firstName: "",
-        lastName: "",
-        address: "",
-        apartment: "",
-        city: "",
-        state: "",
-        zip: "",
-        phone: "",
-        cardNumber: "",
-        expiry: "",
-        cvc: "",
-        nameOnCard: "",
-        paymentMethod: "creditCard",
-        saveInfo: true,
-      });
-    
-      const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-      };
-    
-      return (
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await deliveryServices.delivery(formData);
+            alert(response.message || "Address updated successfully");
+            dispatch(clearDeliveryDetails()); // Clear Redux state after successful submission
+        } catch (error) {
+            alert(error.message || "Failed to update address");
+        }
+    };
+
+    return (
         <div className="max-w-2xl mx-auto p-6 bg-white shadow-lg rounded-lg">
-          {/* Contact Section */}
-          <div className="mb-6">
-            <h2 className="text-xl font-semibold">Contact</h2>
-            <input
-              type="email"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full border p-3 rounded-lg mt-2"
-            />
-            <div className="flex items-center gap-2 mt-2">
-              <input type="checkbox" id="news" className="w-4 h-4" />
-              <label htmlFor="news" className="text-sm">Email me with news and offers</label>
-            </div>
-          </div>
-    
-          {/* Delivery Section */}
-          <div className="mb-6">
-            <h2 className="text-xl font-semibold">Delivery</h2>
-            <div className="grid grid-cols-2 gap-4 mt-2">
-              <input type="text" placeholder="First name" name="firstName" onChange={handleChange} className="border p-3 rounded-lg w-full" />
-              <input type="text" placeholder="Last name" name="lastName" onChange={handleChange} className="border p-3 rounded-lg w-full" />
-            </div>
-            <input type="text" placeholder="Address" name="address" onChange={handleChange} className="border p-3 rounded-lg w-full mt-2" />
-            <input type="text" placeholder="Apartment, suite, etc. (optional)" name="apartment" onChange={handleChange} className="border p-3 rounded-lg w-full mt-2" />
-            <div className="grid grid-cols-3 gap-4 mt-2">
-              <input type="text" placeholder="City" name="city" onChange={handleChange} className="border p-3 rounded-lg w-full" />
-              <input type="text" placeholder="State" name="state" onChange={handleChange} className="border p-3 rounded-lg w-full" />
-              <input type="text" placeholder="ZIP code" name="zip" onChange={handleChange} className="border p-3 rounded-lg w-full" />
-            </div>
-            <input type="text" placeholder="Phone" name="phone" onChange={handleChange} className="border p-3 rounded-lg w-full mt-2" />
-          </div>
-    
-          {/* Payment Section */}
-          <div className="mb-6">
-            <h2 className="text-xl font-semibold">Payment</h2>
-            <p className="text-sm text-gray-500 mb-2">All transactions are secure and encrypted.</p>
-            
-            <div className="bg-gray-100 p-4 rounded-lg">
-              <label className="flex items-center space-x-2">
-                <input type="radio" name="paymentMethod" value="creditCard" checked={formData.paymentMethod === "creditCard"} onChange={handleChange} />
-                <span>Credit Card</span>
-              </label>
-    
-              <div className="mt-3">
-                <input type="text" placeholder="Card number" name="cardNumber" onChange={handleChange} className="border p-3 rounded-lg w-full mt-2" />
-                <div className="grid grid-cols-2 gap-4 mt-2">
-                  <input type="text" placeholder="Expiration date (MM / YY)" name="expiry" onChange={handleChange} className="border p-3 rounded-lg w-full" />
-                  <input type="text" placeholder="Security code" name="cvc" onChange={handleChange} className="border p-3 rounded-lg w-full" />
-                </div>
-                <input type="text" placeholder="Name on card" name="nameOnCard" onChange={handleChange} className="border p-3 rounded-lg w-full mt-2" />
-              </div>
-            </div>
-    
-            <label className="flex items-center space-x-2 mt-4">
-              <input type="radio" name="paymentMethod" value="paypal" onChange={handleChange} />
-              <span>PayPal</span>
-            </label>
-    
-            <label className="flex items-center space-x-2 mt-2">
-              <input type="radio" name="paymentMethod" value="shopPay" onChange={handleChange} />
-              <span>Shop Pay</span>
-            </label>
-          </div>
-    
-          {/* Remember Me Section */}
-          <div className="mb-6">
-            <h2 className="text-xl font-semibold">Remember Me</h2>
-            <label className="flex items-center space-x-2 mt-2">
-              <input type="checkbox" checked={formData.saveInfo} onChange={() => setFormData({ ...formData, saveInfo: !formData.saveInfo })} />
-              <span>Save my information for a faster checkout</span>
-            </label>
-          </div>
-    
-          {/* Pay Now Button */}
-          <button className="w-full bg-black text-white py-3 rounded-lg text-lg font-semibold hover:bg-gray-800 transition">
-            Pay now
-          </button>
-        </div>
+            <h2 className="text-2xl font-pop font-extrabold mb-4">SHIPPING DETAILS</h2>
 
-    
-  )
-}
+            <form onSubmit={handleSubmit} className="space-y-4">
+                <div>
+                    <label className="block text-lg font-semibold">Contact</label>
+                    <input
+                        type="phone"
+                        name="Number"
+                        placeholder="Enter valid number"
+                        value={formData.phone || ""}
+                        onChange={handleChange}
+                        className="w-full border p-3 rounded-lg mt-2"
+                        required
+                    />
+                </div>
+
+                <div>
+                    <label className="block text-lg font-semibold">Delivery</label>
+                    <div className="grid grid-cols-2 gap-4 mt-2">
+                        <input
+                            type="text"
+                            name="firstName"
+                            placeholder="First name"
+                            value={formData.firstName}
+                            onChange={handleChange}
+                            className="border p-3 rounded-lg w-full"
+                            required
+                        />
+                        <input
+                            type="text"
+                            name="lastName"
+                            placeholder="Last name"
+                            value={formData.lastName}
+                            onChange={handleChange}
+                            className="border p-3 rounded-lg w-full"
+                            required
+                        />
+                    </div>
+                    <input
+                        type="text"
+                        name="address"
+                        placeholder="Address"
+                        value={formData.address}
+                        onChange={handleChange}
+                        className="border p-3 rounded-lg w-full mt-2"
+                        required
+                    />
+                    <input
+                        type="text"
+                        name="landmark"
+                        placeholder="Landmark"
+                        value={formData.landmark || ""}
+                        onChange={handleChange}
+                        className="border p-3 rounded-lg w-full mt-2"
+                    />
+                    <div className="grid grid-cols-3 gap-4 mt-2">
+                        <input
+                            type="text"
+                            name="city"
+                            placeholder="City"
+                            value={formData.city}
+                            onChange={handleChange}
+                            className="border p-3 rounded-lg w-full"
+                            required
+                        />
+                        <input
+                            type="text"
+                            name="state"
+                            placeholder="State"
+                            value={formData.state}
+                            onChange={handleChange}
+                            className="border p-3 rounded-lg w-full"
+                            required
+                        />
+                            
+                  
+                        <input
+                            type="text"
+                            name="pinCode"
+                            placeholder="PIN code"
+                            value={formData.pinCode}
+                            onChange={handleChange}
+                            className="border p-3 rounded-lg w-full"
+                            required
+                        />
+                    </div>
+                    <input
+                        type="text"
+                        name="phone"
+                        placeholder="Phone"
+                        value={formData.phone}
+                        onChange={handleChange}
+                        className="border p-3 rounded-lg w-full mt-2"
+                        required
+                    />
+                </div>
+
+                <button
+                    type="submit"
+                    className="w-full bg-black text-white py-3 rounded-lg text-lg font-semibold hover:bg-gray-800 transition"
+                >
+                    Pay now
+                </button>
+            </form>
+        </div>
+    );
+};
 
 export default Order;
