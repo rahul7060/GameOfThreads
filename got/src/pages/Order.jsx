@@ -1,26 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { 
     setFirstName, setLastName, setAddress, setLandmark, setCity, setState, 
     setPinCode, setPhone, setEmail, clearDeliveryDetails 
 } from "../Redux/features/auth/DeliverySlice";
-import { fetchCart } from "../service/cartServices"; 
 import deliveryServices from "../service/deliveryServices";
-import handlePayment from "../service/handlePayment";
-import orderServices from "../service/orderServices";
+import handlePayment from "../service/handlePayment"; 
 
 const Order = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const formData = useSelector((state) => state.delivery);
-    const cartItems = useSelector((state) => state.cart.items); // ✅ Fetch cart items
     const [paymentStatus, setPaymentStatus] = useState(null);
-    const [isProcessing, setIsProcessing] = useState(false);
-
-    useEffect(() => {
-        dispatch(fetchCart()); // ✅ Fetch cart items when component loads
-    }, [dispatch]);
+    const [isProcessing, setIsProcessing] = useState(false); // ✅ Prevent multiple clicks
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -43,61 +36,34 @@ const Order = () => {
         try {
             setIsProcessing(true);
             const response = await deliveryServices.delivery(formData);
-            return response.success; // ✅ Return success status
+            alert(response.message || "✅ Address updated successfully");
+            return true; // ✅ Indicates success
         } catch (error) {
             alert(error.message || "❌ Failed to update address");
             setIsProcessing(false);
-            return false;
+            return false; // ❌ Indicates failure
         }
     };
 
-    // ✅ Step 2: Handle payment process
+    // ✅ Step 2: Save delivery details, then process payment
     const handlePaymentClick = async () => {
         if (!formData.phone || !formData.address || !formData.firstName) {
-            alert("⚠️ Please fill all required details before proceeding.");
+            alert("⚠️ Please fill all required details before proceeding to payment.");
             return;
         }
 
-        // ✅ Ensure delivery details are saved
+        // First, ensure delivery details are saved
         const isSaved = await handleSubmit();
         if (!isSaved) return;
 
         try {
             setIsProcessing(true);
-            const paymentResponse = await handlePayment(500, formData, dispatch, navigate);
-            
-            if (paymentResponse.success) {
-                setPaymentStatus({ success: true, message: "✅ Payment successful!" });
-
-                // ✅ Store new order after successful payment
-                await storeOrder(paymentResponse.paymentDetails);
-            } else {
-                setPaymentStatus({ success: false, message: "❌ Payment failed!" });
-            }
+            const status = await handlePayment(500, formData, dispatch, navigate);
+            setPaymentStatus(status);
         } catch (error) {
             alert("❌ Payment failed. Please try again.");
         } finally {
             setIsProcessing(false);
-        }
-    };
-
-    // ✅ Step 3: Store Order after Payment Success
-    const storeOrder = async (paymentDetails) => {
-        try {
-            const newOrder = {
-                user: formData.email,
-                cartItems, // ✅ Store cart details
-                deliveryAddress: formData, // ✅ Store delivery details
-                paymentDetails, // ✅ Store payment information
-                orderDate: new Date(),
-                status: "Processing", // Default status
-            };
-
-            const response = await orderServices.createOrder(newOrder);
-            alert(response.message || "✅ Order placed successfully!");
-            navigate("/orders"); // ✅ Redirect to order history
-        } catch (error) {
-            alert("❌ Failed to store order details.");
         }
     };
 
