@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { selectEmail, selectName, selectPassword, setEmail, setName, setPassword } from "../../src/Redux/features/auth/AuthSlice";
 import authServices from "../service/authServices";
-
+import Swal from "sweetalert2";
 const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();

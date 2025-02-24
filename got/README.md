@@ -7,11 +7,11 @@
 - Recent orders & top-selling products
 
 ### 2️⃣ Product Management
-- Add new products (Title, Description, Images, Price, Stock, Category, etc.)
+
 - Edit / Update products
 - Delete products
-- Manage categories & tags
-- Bulk product upload & updates
+
+
 
 ### 3️⃣ Order Management
 - View all orders (Pending, Processing, Shipped, Delivered, Cancelled)
@@ -65,11 +65,9 @@
 - Subscription & recurring payments
 
 ### 1️⃣1️⃣ Site Settings
-- Manage website logo, banner, and theme settings
-- Enable/disable maintenance mode
+
+
 - Update policies (Return, Privacy, Terms & Conditions)
-- Multi-language & localization support
-- Tax & compliance settings
 
 ## 🛒 User Dashboard Features
 
@@ -116,7 +114,7 @@
 
 ### 8️⃣ Payment & Transactions
 - View past payments & invoices
-- Saved payment methods (Credit Card, PayPal, UPI, etc.)
+-
 - Manage refunds & disputes
 - EMI & installment payment options
 
@@ -130,9 +128,5 @@
 - Promotional offers & deals alerts
 - Security alerts & account activity notifications
 
----
 
-
-
-This README provides a complete overview of the features available for both admin and user dashboards in the e-commerce system.
 
