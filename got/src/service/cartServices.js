@@ -37,7 +37,7 @@ const cartServices = {
     },  
       createOrder: async (data) => {
         try {
-            const response = await instance.post('/create-order', data, { withCredentials: true });
+            const response = await instance.post('/cart/create-order', data, { withCredentials: true });
 
             return response.data;
         } catch (error) {
@@ -47,7 +47,7 @@ const cartServices = {
 
     verifyPayment: async (data) => {
         try {
-            const response = await instance.post('/verify-payment', data, { withCredentials: true });
+            const response = await instance.post('/order/verify-payment', data, { withCredentials: true });
             return response.data;
         } catch (error) {
             return { error: error.response?.data || "An error occurred while verifying payment." };

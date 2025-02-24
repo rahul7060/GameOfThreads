@@ -13,7 +13,7 @@ const Order = () => {
     const navigate = useNavigate();
     const formData = useSelector((state) => state.delivery);
     const [paymentStatus, setPaymentStatus] = useState(null);
-    const [isProcessing, setIsProcessing] = useState(false); // ✅ Prevent multiple clicks
+    const [isProcessing, setIsProcessing] = useState(false); 
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -33,8 +33,8 @@ const Order = () => {
 
     // ✅ Step 1: Save delivery details before payment
     const handleSubmit = async () => {
+        setIsProcessing(true);
         try {
-            setIsProcessing(true);
             const response = await deliveryServices.delivery(formData);
             alert(response.message || "✅ Address updated successfully");
             return true; // ✅ Indicates success
@@ -45,27 +45,32 @@ const Order = () => {
         }
     };
 
-    // ✅ Step 2: Save delivery details, then process payment
+    // ✅ Step 2: Validate, save details, then process payment
     const handlePaymentClick = async () => {
         if (!formData.phone || !formData.address || !formData.firstName) {
             alert("⚠️ Please fill all required details before proceeding to payment.");
             return;
         }
-
-        // First, ensure delivery details are saved
+    
+        if (isProcessing) return; // Prevent duplicate clicks
+        setIsProcessing(true);
+    
         const isSaved = await handleSubmit();
-        if (!isSaved) return;
-
+        if (!isSaved) {
+            setIsProcessing(false);
+            return;
+        }
+    
         try {
-            setIsProcessing(true);
-            const status = await handlePayment(500, formData, dispatch, navigate);
-            setPaymentStatus(status);
+            await handlePayment(500, formData, [], dispatch, navigate);
+            // No need for setPaymentStatus(status) as handlePayment already navigates
         } catch (error) {
             alert("❌ Payment failed. Please try again.");
         } finally {
             setIsProcessing(false);
         }
     };
+    
 
     return (
         <div className="max-w-2xl mx-auto p-6 bg-white shadow-lg rounded-lg">

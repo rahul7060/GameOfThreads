@@ -1,23 +1,16 @@
-
 import instance from "./instance";
 import { loadRazorpayScript } from "../service/razorpayService";
 const razorpayKey = import.meta.env.VITE_RAZORPAY_KEY;
-
-
-import { clearDeliveryDetails } from "../Redux/features/auth/DeliverySlice"; // ✅ Import Redux action
+import { clearDeliveryDetails } from "../Redux/features/auth/DeliverySlice"; 
 
 const handlePayment = async (amount, userDetails, cartItems, dispatch, navigate) => {
     try {
         console.log("🔄 Loading Razorpay script...");
         const razorpayLoaded = await loadRazorpayScript();
-        if (!razorpayLoaded) {
-            alert("⚠️ Failed to load Razorpay. Please check your internet connection.");
-            return;
-        }
+        if (!razorpayLoaded) throw new Error("⚠️ Failed to load Razorpay. Please check your internet connection.");
 
         console.log("🛒 Creating order...");
         const { data } = await instance.post("/cart/create-order", { amount });
-
         console.log("✅ Order Created Successfully:", data);
 
         const options = {
@@ -30,25 +23,19 @@ const handlePayment = async (amount, userDetails, cartItems, dispatch, navigate)
             handler: async function (response) {
                 try {
                     console.log("💳 Payment Successful. Verifying...");
-                    const verification = await instance.post("/cart/verify-payment", {
+                    const verification = await instance.post("/order/verify-payment", {
                         razorpay_order_id: response.razorpay_order_id,
                         razorpay_payment_id: response.razorpay_payment_id,
                         razorpay_signature: response.razorpay_signature,
                         totalPrice: amount,
                     });
-
-                    if (verification.data.success) {
-                        alert("✅ Payment Successful! Storing order in the database...");
-                        dispatch(clearDeliveryDetails());
-
-                        // ✅ Store order in the database
-                        await storeOrder(userDetails, cartItems, response, amount);
-
-                        // ✅ Navigate to order confirmation page
-                        navigate(`/UserDashboard/home?status=success&payment_id=${response.razorpay_payment_id}`);
-                    } else {
-                        alert("❌ Payment verification failed.");
-                    }
+                    
+                    if (!verification.data.success) throw new Error("❌ Payment verification failed.");
+                    
+                    alert("✅ Payment Successful! Storing order in the database...");
+                    dispatch(clearDeliveryDetails());
+                    await storeOrder(userDetails, cartItems, response, amount);
+                    navigate(`/UserDashboard/home?status=success&payment_id=${response.razorpay_payment_id}`);
                 } catch (error) {
                     console.error("🔴 Payment Verification Error:", error);
                     alert("❌ Error verifying payment. Please contact support.");
@@ -70,7 +57,7 @@ const handlePayment = async (amount, userDetails, cartItems, dispatch, navigate)
                 },
             },
         };
-
+        
         console.log("🚀 Initializing Razorpay Payment Gateway...");
         const razor = new window.Razorpay(options);
         razor.open();
@@ -81,13 +68,12 @@ const handlePayment = async (amount, userDetails, cartItems, dispatch, navigate)
     }
 };
 
-// ✅ Function to store order details after payment success
 const storeOrder = async (userDetails, cartItems, paymentDetails, totalAmount) => {
     try {
         const orderData = {
             user: userDetails.email,
-            cartItems, // ✅ Store all cart details
-            deliveryAddress: userDetails, // ✅ Store user delivery details
+            cartItems,
+            deliveryAddress: userDetails,
             paymentDetails: {
                 paymentId: paymentDetails.razorpay_payment_id,
                 orderId: paymentDetails.razorpay_order_id,
@@ -100,14 +86,17 @@ const storeOrder = async (userDetails, cartItems, paymentDetails, totalAmount) =
         };
 
         const response = await instance.post("/order/neworder", orderData);
+        console.log("✅ Full API Response:", response);
+
+        if (!response || !response.data || response.data.error) {
+            throw new Error(response.data?.error || "Unknown error occurred");
+        }
+
         console.log("✅ Order stored in DB:", response.data);
         alert("✅ Order placed successfully!");
-
     } catch (error) {
-        console.error("❌ Failed to store order:", error);
-        alert("❌ Failed to store order details.");
-    }
+        
+        console.error("❌ Failed to store order:", error.message || error);
 };
-
+}
 export default handlePayment;
-
