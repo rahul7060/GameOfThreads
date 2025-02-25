@@ -16,7 +16,7 @@ const getNavigation = (user) => {
         return [
             { name: 'Home', href: '/UserDashboard/home', current: true },
             { name: 'Cart', href: '/UserDashboard/cart', current: false },
-            // { name: 'Order', href: '/UserDashboard/order', current: false },
+           { name: 'MyOrders', href: '/UserDashboard/myOrders', current: false },
         
         ]
     } else if (user.role === 'admin') {

@@ -37,6 +37,8 @@ import DenimAnyone from "./pages/ANYONE/DenimAnyone";
 import JoggerAnyone from "./pages/ANYONE/JoggerAnyone";
 import ProductPageAnyone from "./pages/ANYONE/ProductPageAnyone";
 import EliteTee from "./pages/EliteTee";
+import MyOrders from "./pages/MyOrders";
+import orderLoader from "./loaders/orderLoader";
 
 
 
@@ -219,7 +221,12 @@ const routes = [
         element: <Order/>,
         hydrateFallbackElement: <div>Loading...</div>,
       },
-    
+      {
+        path: "myOrders",
+        element: <MyOrders/>,
+        loader:orderLoader,
+        hydrateFallbackElement: <div>Loading...</div>,
+      },
       
     ]
   },
