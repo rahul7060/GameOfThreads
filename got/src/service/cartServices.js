@@ -37,7 +37,9 @@ const cartServices = {
     },  
       createOrder: async (data) => {
         try {
-            const response = await instance.post('/cart/create-order', data, { withCredentials: true });
+            const response = await instance.post('/cart/create-order', data, { withCredentials: true , headers: {
+                "Content-Type": "application/json",
+            }, });
 
             return response.data;
         } catch (error) {
