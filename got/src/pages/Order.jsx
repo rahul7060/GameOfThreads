@@ -7,7 +7,7 @@ import {
 } from "../Redux/features/auth/DeliverySlice";
 import deliveryServices from "../service/deliveryServices";
 import handlePayment from "../service/handlePayment"; 
-
+import Swal from "sweetalert2";
 const Order = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -36,8 +36,13 @@ const Order = () => {
         setIsProcessing(true);
         try {
             const response = await deliveryServices.delivery(formData);
-            alert(response.message || "✅ Address updated successfully");
-            return true; // ✅ Indicates success
+            Swal.fire({
+                icon: "success",
+                title: "PAY TO PLACE ORDER",
+                text: "THANKS FOR PURCHASING WITH US",
+                confirmButtonColor: "#3085d6",
+            });
+            return response; // ✅ Indicates success
         } catch (error) {
             alert(error.message || "❌ Failed to update address");
             setIsProcessing(false);

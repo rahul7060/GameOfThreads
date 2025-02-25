@@ -2,7 +2,7 @@ import instance from "./instance";
 import { loadRazorpayScript } from "../service/razorpayService";
 const razorpayKey = import.meta.env.VITE_RAZORPAY_KEY;
 import { clearDeliveryDetails } from "../Redux/features/auth/DeliverySlice"; 
-
+import Swal from "sweetalert2";
 const handlePayment = async (amount, userDetails, cartItems, dispatch, navigate) => {
     try {
         console.log("🔄 Loading Razorpay script...");
@@ -19,7 +19,7 @@ const handlePayment = async (amount, userDetails, cartItems, dispatch, navigate)
             key: razorpayKey,
             amount: data.order.amount,
             currency: "INR",
-            name: "Your Store",
+            name: "GAME OF THREADS",
             description: "Purchase Order",
             order_id: data.order.id,
             handler: async function (response) {
@@ -37,10 +37,15 @@ const handlePayment = async (amount, userDetails, cartItems, dispatch, navigate)
 
                     if (!verification.data.success) throw new Error("❌ Payment verification failed.");
 
-                    alert("✅ Payment Successful! Order placed.");
+                    Swal.fire({
+                        icon: "success",
+                        title: "Payment Successful!",
+                        text: "Your order has been placed successfully.",
+                        confirmButtonColor: "#3085d6",
+                    });
                     dispatch(clearDeliveryDetails());
 
-                    navigate(`/UserDashboard/home?status=success&payment_id=${response.razorpay_payment_id}`);
+                    navigate(`/UserDashboard/myOrders?status=success&payment_id=${response.razorpay_payment_id}`);
                 } catch (error) {
                     console.error("🔴 Payment Verification Error:", error);
                     alert("❌ Error verifying payment. Please contact support.");
