@@ -39,6 +39,7 @@ import ProductPageAnyone from "./pages/ANYONE/ProductPageAnyone";
 import EliteTee from "./pages/EliteTee";
 import MyOrders from "./pages/MyOrders";
 import orderLoader from "./loaders/orderLoader";
+import adminLoader from "./loaders/adminLoader";
 
 
 
@@ -256,6 +257,7 @@ const routes = [
       {
         path: "OrderDetail",
         element: <OrderDetail/>,
+        loader:adminLoader,
         hydrateFallbackElement: <div>Loading...</div>,
       },
       {
