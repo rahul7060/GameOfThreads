@@ -1,5 +1,6 @@
 import orderServices from "../service/orderServices";
 
+
 const orderLoader = async ({ params }) => {
     try {
       const page = Number(params.page) || 1;  
@@ -9,7 +10,7 @@ const orderLoader = async ({ params }) => {
         return { orders: [], total: 0 };
       }
   
-      const orders = response.data.orders.slice((page - 1) * 15, page * 15);
+      const orders = response.data.orders.slice((page - 1) * 2, page * 2);
       return { orders, total: response.data.orders.length };
     } catch (error) {
       console.error("Error loading orders:", error);

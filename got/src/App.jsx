@@ -223,7 +223,7 @@ const routes = [
         hydrateFallbackElement: <div>Loading...</div>,
       },
       {
-        path: "myOrders",
+        path: "myOrders/:page?",
         element: <MyOrders/>,
         loader:orderLoader,
         hydrateFallbackElement: <div>Loading...</div>,

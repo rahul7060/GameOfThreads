@@ -1,16 +1,19 @@
-import instance from "./instance";
+
 import { loadRazorpayScript } from "../service/razorpayService";
 const razorpayKey = import.meta.env.VITE_RAZORPAY_KEY;
-import { clearDeliveryDetails } from "../Redux/features/auth/DeliverySlice"; 
+import { clearDeliveryDetails } from "../Redux/features/auth/DeliverySlice";
 import Swal from "sweetalert2";
-const handlePayment = async (amount, userDetails, cartItems, dispatch, navigate) => {
+import cartServices from "./cartServices";
+
+const handlePayment = async (amount, userDetails, dispatch, navigate) => {
     try {
         console.log("🔄 Loading Razorpay script...");
         const razorpayLoaded = await loadRazorpayScript();
         if (!razorpayLoaded) throw new Error("⚠️ Failed to load Razorpay. Please check your internet connection.");
 
         console.log("🛒 Creating order...");
-        const { data } = await instance.post("/cart/create-order", { amount });
+        
+        const data = await cartServices.createOrder({ amount });
         if (!data.order) throw new Error("❌ Order creation failed.");
 
         console.log("✅ Order Created Successfully:", data);
@@ -23,20 +26,15 @@ const handlePayment = async (amount, userDetails, cartItems, dispatch, navigate)
             description: "Purchase Order",
             order_id: data.order.id,
             handler: async function (response) {
-                try {
-                    console.log("💳 Payment Successful. Verifying...");
+                console.log("Razorpay response:", response);
 
-                    const verification = await instance.post("/order/verify-payment", {
+                try {
+                    const verification = await cartServices.verifyPayment({
                         razorpay_order_id: response.razorpay_order_id,
                         razorpay_payment_id: response.razorpay_payment_id,
                         razorpay_signature: response.razorpay_signature,
-                        totalPrice: amount,
-                        size: cartItems[0]?.size || "N/A",
-                        quantity: cartItems.reduce((acc, item) => acc + item.quantity, 0),
                     });
-
-                    if (!verification.data.success) throw new Error("❌ Payment verification failed.");
-
+                    console.log("Verification response:", verification.data);
                     Swal.fire({
                         icon: "success",
                         title: "Payment Successful!",
@@ -44,10 +42,9 @@ const handlePayment = async (amount, userDetails, cartItems, dispatch, navigate)
                         confirmButtonColor: "#3085d6",
                     });
                     dispatch(clearDeliveryDetails());
-
                     navigate(`/UserDashboard/myOrders?status=success&payment_id=${response.razorpay_payment_id}`);
-                } catch (error) {
-                    console.error("🔴 Payment Verification Error:", error);
+                } catch (verificationError) {
+                    console.error("Error during verification:", verificationError);
                     alert("❌ Error verifying payment. Please contact support.");
                     navigate(`/order-summary?status=failed`);
                 }
@@ -61,13 +58,12 @@ const handlePayment = async (amount, userDetails, cartItems, dispatch, navigate)
             modal: {
                 escape: false,
                 ondismiss: function () {
-                    alert("⚠️ Payment process was canceled.");
+                    alert("Payment process was canceled.");
                     navigate(`/order-summary?status=canceled`);
                 },
             },
         };
 
-        console.log("🚀 Initializing Razorpay Payment Gateway...");
         const razor = new window.Razorpay(options);
         razor.open();
     } catch (error) {

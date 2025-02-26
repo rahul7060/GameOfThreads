@@ -35,23 +35,25 @@ const cartServices = {
             return { error: "Failed to update quantity." };
         }
     },  
-      createOrder: async (data) => {
+    createOrder: async (data) => {
         try {
-            const response = await instance.post('/cart/create-order', data, { withCredentials: true , headers: {
-                "Content-Type": "application/json",
-            }, });
-
+            console.log("🛒 Creating Order with Data:", data);
+            const response = await instance.post('/cart/create-order', data);
+            console.log("✅ Order Created:", response.data);
             return response.data;
         } catch (error) {
+            console.error("❌ Error Creating Order:", error.response?.data || error);
             return { error: error.response?.data || "An error occurred while creating the order." };
         }
     },
-
-    verifyPayment: async (data) => {
+    verifyPayment : async (data) => {
         try {
-            const response = await instance.post('/order/verify-payment', data, { withCredentials: true });
+
+            const response = await instance.post("/order/verify-payment", data);
+            console.log("✅ Payment Verified:", response.data);
             return response.data;
         } catch (error) {
+            console.error("❌ Error Verifying Payment:", error.response?.data || error);
             return { error: error.response?.data || "An error occurred while verifying payment." };
         }
     }

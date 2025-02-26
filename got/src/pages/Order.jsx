@@ -6,14 +6,14 @@ import {
     setPinCode, setPhone, setEmail, clearDeliveryDetails 
 } from "../Redux/features/auth/DeliverySlice";
 import deliveryServices from "../service/deliveryServices";
-import handlePayment from "../service/handlePayment"; 
 import Swal from "sweetalert2";
+import handlePayment from "../service/handlePayment";
+
 const Order = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const formData = useSelector((state) => state.delivery);
-    const [paymentStatus, setPaymentStatus] = useState(null);
-    const [isProcessing, setIsProcessing] = useState(false); 
+
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -33,7 +33,7 @@ const Order = () => {
 
     // ✅ Step 1: Save delivery details before payment
     const handleSubmit = async () => {
-        setIsProcessing(true);
+   
         try {
             const response = await deliveryServices.delivery(formData);
             Swal.fire({
@@ -45,35 +45,29 @@ const Order = () => {
             return response; // ✅ Indicates success
         } catch (error) {
             alert(error.message || "❌ Failed to update address");
-            setIsProcessing(false);
+
             return false; // ❌ Indicates failure
         }
     };
 
-    // ✅ Step 2: Validate, save details, then process payment
     const handlePaymentClick = async () => {
         if (!formData.phone || !formData.address || !formData.firstName) {
             alert("⚠️ Please fill all required details before proceeding to payment.");
             return;
         }
     
-        if (isProcessing) return; // Prevent duplicate clicks
-        setIsProcessing(true);
+        const isSaved = await handleSubmit(); // Save delivery details
     
-        const isSaved = await handleSubmit();
-        if (!isSaved) {
-            setIsProcessing(false);
-            return;
-        }
-    
+        if (isSaved) {
+           
+       
         try {
-            await handlePayment(500, formData, [], dispatch, navigate);
-            // No need for setPaymentStatus(status) as handlePayment already navigates
+            await handlePayment( formData, [], dispatch, navigate);
+            
         } catch (error) {
             alert("❌ Payment failed. Please try again.");
-        } finally {
-            setIsProcessing(false);
-        }
+        } 
+    }
     };
     
 
@@ -81,11 +75,7 @@ const Order = () => {
         <div className="max-w-2xl mx-auto p-6 bg-white shadow-lg rounded-lg">
             <h2 className="text-2xl font-pop font-extrabold mb-4">SHIPPING DETAILS</h2>
 
-            {paymentStatus && (
-                <div className={`p-3 rounded-lg text-center ${paymentStatus.success ? "bg-green-200 text-green-800" : "bg-red-200 text-red-800"}`}>
-                    {paymentStatus.message}
-                </div>
-            )}
+          
 
             <form className="space-y-4">
                 <div>
@@ -105,15 +95,13 @@ const Order = () => {
                 </div>
 
                 <button
-                    type="button"
-                    onClick={handlePaymentClick}
-                    className={`w-full text-white py-3 rounded-lg text-lg font-semibold transition ${
-                        isProcessing ? "bg-gray-500 cursor-not-allowed" : "bg-black hover:bg-gray-800"
-                    }`}
-                    disabled={isProcessing}
-                >
-                    {isProcessing ? "Processing..." : "Pay now"}
-                </button>
+    type="button"
+    onClick={handlePaymentClick}
+    className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition"
+>
+    Proceed to Payment
+</button>
+
             </form>
         </div>
     );
