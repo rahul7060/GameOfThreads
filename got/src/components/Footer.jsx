@@ -1,5 +1,5 @@
 import React from 'react';
-
+import ReactDOM from "react-dom";
 const Footer = () => {
   return (
     <footer className="bg-black text-white p-6">
