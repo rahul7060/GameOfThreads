@@ -5,7 +5,15 @@ export default defineConfig({
   plugins: [tailwindcss()],
   build: {
     rollupOptions: {
-      external: ['@reduxjs/toolkit', 'sweetalert2'], // Combine both into a single array
+      external: [
+        '@reduxjs/toolkit',
+        'react-redux',
+        'sweetalert2',
+        'axios',
+        'react',
+        'react-dom',
+        'react-router-dom'
+      ]
     }
   }
 });
