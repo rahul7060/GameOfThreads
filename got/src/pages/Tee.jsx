@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React from 'react';
+import React, { useEffect, useState }  from 'react'
 import { useLoaderData, useNavigate, useParams } from "react-router-dom";
 import { FaHeart } from "react-icons/fa";
 

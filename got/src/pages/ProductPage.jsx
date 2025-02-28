@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import { useLoaderData, useNavigate, useParams } from "react-router-dom";
 import cartServices from "../service/cartServices";
 import Swal from "sweetalert2";

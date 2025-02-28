@@ -1,4 +1,4 @@
-import React from "react";
+
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { selectEmail, selectName, selectPassword, setEmail, setName, setPassword } from "../../src/Redux/features/auth/AuthSlice";
