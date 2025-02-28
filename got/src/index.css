@@ -1,0 +1,10 @@
+@import "tailwindcss";
+
+.font-creep {
+    font-family: 'Creepster', cursive;
+}
+.font-pop {
+    font-family: 'Poppins' , sans-serif;
+}
+
+  
