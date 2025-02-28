@@ -1,0 +1,9 @@
+[build]
+  publish = "dist"  # Update this to point to your dist directory
+  command = "npm run build"  # Keep this as is if your build command is correct
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  force = true  # Optional: force the redirect even if there's an existing file or route

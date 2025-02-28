@@ -1,24 +1,36 @@
-
 import React, { useState } from "react";
 import { useLoaderData, useNavigate, useParams } from "react-router-dom";
 import cartServices from "../service/cartServices";
 import Swal from "sweetalert2";
+
 const ProductPage = () => {
   const product = useLoaderData();
   const { id } = useParams();
   const [selectedSize, setSelectedSize] = useState(null);
-const navigate = useNavigate();
+  const navigate = useNavigate();
+
   console.log("Product ID from Params:", id);
   console.log("Loaded Product Data:", product);
 
   if (!product) {
     return (
       <p className="text-center text-red-600 font-bold text-xl">
-        Error: Failed to load product details.
+        ❌ Error: Failed to load product details.
       </p>
     );
   }
-  const addToCart = async (id) => {
+
+  const addToCart = async (productId) => {
+    if (!productId) {
+      console.error("❌ Product ID is undefined.");
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Product ID is missing.",
+      });
+      return;
+    }
+
     if (!selectedSize) {
       Swal.fire({
         toast: true,
@@ -29,47 +41,53 @@ const navigate = useNavigate();
         timer: 2000,
         timerProgressBar: true,
       });
-        // alert("Please select a size before adding to the cart.");
-        return;
+      return;
     }
 
     try {
-        const response = await cartServices.addToCart({ productId: id, quantity: 1, size: selectedSize });
+      const response = await cartServices.addToCart({
+        productId,
+        quantity: 1,
+        size: selectedSize,
+      });
 
-        if (response.error) {
-          Swal.fire({
-            toast: true,
-            position: "top-right",
-            icon: "warning",
-            title: "response.error",
-            showConfirmButton: false,
-            timer: 2000,
-            timerProgressBar: true,
-          });
-            // alert(response.error);
-        } else {
-          Swal.fire({
-            toast: true,
-            position: "top-right",
-            icon: "warning",
-            title: "Product added to cart successfully!",
-            showConfirmButton: false,
-            timer: 500,
-            timerProgressBar: true,
-          });
-          setTimeout(() => {
-            navigate("/UserDashboard/cart");
-          }, 500); // Redirect after toast disappears
-            // alert("Product added to cart successfully!");
-        }
+      if (response?.error) {
+        Swal.fire({
+          toast: true,
+          position: "top-right",
+          icon: "error",
+          title: response.error,
+          showConfirmButton: false,
+          timer: 2000,
+          timerProgressBar: true,
+        });
+      } else {
+        Swal.fire({
+          toast: true,
+          position: "top-right",
+          icon: "success",
+          title: "✅ Product added to cart successfully!",
+          showConfirmButton: false,
+          timer: 1000,
+          timerProgressBar: true,
+        });
+
+        setTimeout(() => {
+          navigate("/UserDashboard/cart");
+        }, 1000);
+      }
     } catch (error) {
-        alert("An error occurred while adding the product.");
+      console.error("❌ Add to Cart Error:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "An error occurred while adding the product.",
+      });
     }
-};
-
+  };
 
   return (
-    <div className="max-w-5xl  mx-auto p-6 bg-white">
+    <div className="max-w-5xl mx-auto p-6 bg-white">
       {/* Product Details Section */}
       <div className="flex flex-col md:flex-row items-center gap-10">
         {/* Product Image */}
@@ -82,8 +100,10 @@ const navigate = useNavigate();
         {/* Product Info */}
         <div className="w-full md:w-1/2 space-y-4">
           <h1 className="text-4xl font-[Poppins] font-extrabold">{product.name}</h1>
-          <p className="text-2xl font-[Poppins] font-extrabold text-red-600 ">RS: ₹ {product.price}</p>
-          <p className="text-sm font-pop  text-gray-600">{product.description}</p>
+          <p className="text-2xl font-[Poppins] font-extrabold text-red-600">
+            RS: ₹ {product.price}
+          </p>
+          <p className="text-sm font-pop text-gray-600">{product.description}</p>
 
           {/* Size Selection */}
           <div>
@@ -104,10 +124,15 @@ const navigate = useNavigate();
           </div>
 
           {/* Add to Cart & Favourite Button */}
-          <button onClick={() => addToCart(product._id)} className="w-full bg-black text-white py-3 rounded-lg font-bold hover:bg-green-500">
-            Add to Bag
+          <button
+            onClick={() => addToCart(product._id)}
+            className="w-full bg-black text-white py-3 rounded-lg font-bold hover:bg-green-500 transition duration-300"
+          >
+            🛒 Add to Bag
           </button>
-          <button className="w-full border border-gray-400 py-3 rounded-lg font-bold hover:bg-gray-100">
+          <button
+            className="w-full border border-gray-400 py-3 rounded-lg font-bold hover:bg-gray-100 transition duration-300"
+          >
             ♥ Favourite
           </button>
 

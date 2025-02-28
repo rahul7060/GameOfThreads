@@ -35,28 +35,32 @@ const cartServices = {
             return { error: "Failed to update quantity." };
         }
     },  
-    createOrder: async (data) => {
+    createOrder: async (orderData) => {
+      try {
+          console.log("🛒 Creating Order with Data:", orderData);
+          const response = await instance.post("/order/create-order", orderData, {
+              headers: { "Content-Type": "application/json" }
+          });
+  
+          console.log("✅ Order Created:", response.data); // Log correct response structure
+          return response.data; // Fix: Use response.data instead of response.orderData
+      } catch (error) {
+          console.error("❌ Error Creating Order:", error.response?.data || error);
+          return { error: error.response?.data || "An error occurred while creating the order." };
+      }
+  },
+  
+    
+      verifyPayment: async (paymentData) => {
         try {
-            console.log("🛒 Creating Order with Data:", data);
-            const response = await instance.post('/cart/create-order', data);
-            console.log("✅ Order Created:", response.data);
-            return response.data;
+          const response = await instance.post("/order/verify-payment", paymentData, {
+            headers: { "Content-Type": "application/json" }
+          });
+          return response.data;
         } catch (error) {
-            console.error("❌ Error Creating Order:", error.response?.data || error);
-            return { error: error.response?.data || "An error occurred while creating the order." };
+          console.error("❌ Error Verifying Payment:", error.response?.data || error);
+          return { error: error.response?.data || "An error occurred while verifying payment." };
         }
-    },
-    verifyPayment : async (data) => {
-        try {
-
-            const response = await instance.post("/order/verify-payment", data);
-            console.log("✅ Payment Verified:", response.data);
-            return response.data;
-        } catch (error) {
-            console.error("❌ Error Verifying Payment:", error.response?.data || error);
-            return { error: error.response?.data || "An error occurred while verifying payment." };
-        }
-    }
-};
-
-export default cartServices;
+      },
+    };
+    export default cartServices;    

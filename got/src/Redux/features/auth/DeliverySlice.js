@@ -64,4 +64,3 @@ export const {
 } = DeliverySlice.actions;
 
 export default DeliverySlice.reducer;
-
