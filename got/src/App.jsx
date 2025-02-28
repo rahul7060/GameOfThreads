@@ -14,7 +14,7 @@ import Changepassword from "./pages/Changepassword";
 import UserDashboard from "./wrappers/UserDashboard";
 import Cart from "./pages/Cart";
 import Order from "./pages/Order";
-import authLoader from "./loaders/authLoader";
+
 import AdminDashboardWrapper from "./wrappers/AdminDashboardWrapper";
 import Home from "./pages/Home";
 import Dashboard from "./pages/ANYONE/Dashboard";
@@ -40,6 +40,7 @@ import EliteTee from "./pages/EliteTee";
 import MyOrders from "./pages/MyOrders";
 import orderLoader from "./loaders/orderLoader";
 import adminLoader from "./loaders/adminLoader";
+import authLoader from './loaders/authLoader';
 
 
 
