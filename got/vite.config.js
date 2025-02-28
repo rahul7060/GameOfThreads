@@ -1,7 +1,6 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-import tailwindcss from '@tailwindcss/vite';
 
+
+import { defineConfig } from 'vite'
 export default defineConfig({
   base: '/',
   plugins: [react(), tailwindcss()],
@@ -12,8 +11,6 @@ export default defineConfig({
         'react-redux',
         'sweetalert2',
         'axios',
-        'react',
-        'react-dom',
         'react-router-dom'
       ]
     }
