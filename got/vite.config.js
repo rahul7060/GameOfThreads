@@ -5,7 +5,7 @@ export default defineConfig({
   plugins: [tailwindcss()],
   build: {
     rollupOptions: {
-      external: ['@reduxjs/toolkit'], // Explicitly mark Redux Toolkit as external
+      external: ['@reduxjs/toolkit', 'sweetalert2'], // Combine both into a single array
     }
   }
 });
